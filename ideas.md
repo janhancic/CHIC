@@ -11,3 +11,4 @@ List of feature we'd like to have some day:
 	- be able to land on it's own (on flat surface)
 	- have extension points for various sensors (temperature, humidity, …)
 	- be able to avoid obstacles on it's own
+	- fire nerf guns :)
