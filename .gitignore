@@ -1,3 +1,8 @@
 #KDevelop
 .kdev4
 *.kdev4
+
+#compiled files
+chic
+chic.o
+chic.hex
