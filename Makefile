@@ -1,14 +1,38 @@
 CC=avr-gcc
+CFLAGS=-Wall -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU)
+MCU=atmega168
+F_CPU=16000000UL
 
-compile: chic.c
-	$(CC) -Os -DF_CPU=16000000UL -mmcu=atmega328p -c -o chic.o chic.c
-	$(CC) -mmcu=atmega328p chic.o -o chic
+OBJCOPY=avr-objcopy
+BIN_FORMAT=ihex
 
-upload: compile
-	avr-objcopy -O ihex -R .eeprom chic chic.hex
-	avrdude -F -V -c arduino -p ATMEGA328P -P /dev/ttyACM3 -b 115200 -U flash:w:chic.hex
+PORT=/dev/cuaU0
+BAUD=19200
+PROTOCOL=stk500v1
+PART=$(MCU)
+AVRDUDE=avrdude -F -V
 
-clean: 
-	rm -f *.o
-	rm -f *.hex
-	rm -f chic
+RM=rm -f
+
+.PHONY: all
+all: chic.hex
+
+chic.hex: chic.elf
+
+chic.elf: chic.s
+
+chic.s: chic.c
+
+.PHONY: clean
+clean:
+	$(RM) chic.elf chic.hex chic.s
+
+.PHONY: upload
+upload: chic.hex
+	$(AVRDUDE) -c $(PROTOCOL) -p $(PART) -P $(PORT) -b $(BAUD) -U flash:w:$<
+
+%.elf: %.s ; $(CC) $(CFLAGS) -s -o $@ $<
+
+%.s: %.c ; $(CC) $(CFLAGS) -S -o $@ $<
+
+%.hex: %.elf ; $(OBJCOPY) -O $(BIN_FORMAT) -R .eeprom $< $@

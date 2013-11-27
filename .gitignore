@@ -4,5 +4,8 @@
 
 #compiled files
 chic
-chic.o
-chic.hex
+*.o
+*.s
+*.elf
+*.hex
+
