@@ -8,4 +8,4 @@ chic
 *.s
 *.elf
 *.hex
-
+*.a
