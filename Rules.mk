@@ -27,14 +27,14 @@ dir		:= src
 # fragments in the various subdirectories.
 
 .PHONY:		targets
-targets:	$(TGT_UP) $(TGT_SBIN) $(TGT_ETC) $(TGT_LIB)
+targets:	$(TGT_BIN) $(TGT_SBIN) $(TGT_ETC) $(TGT_LIB)
 
 .PHONY:		clean
 clean:
 			rm -rf $(CLEAN)
 			
 .PHONY:		upload
-upload: 	targets
+upload: 	$(TGT_UP)
 			$(UPLOAD) -Uflash:w:$(TGT_UP)
 
 # Prevent make from removing any build targets, include intermediate ones

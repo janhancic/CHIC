@@ -6,21 +6,18 @@ d			:= $(dir)
 
 # Local variables
 
-ARDUINO_CORE=$(ARDUINO_DIR)/hardware/arduino/cores/arduino
-ARDUINO_VARIANT=$(ARDUINO_DIR)/hardware/arduino/variants/standard
-
 TGTS_$(d)	:= $(d)/libcore.a
-DEPS_$(d)	:= $(d)/wiring.o $(d)/wiring_analog.o $(d)/wiring_digital.o \
+OBJS_$(d)	:= $(d)/wiring.o $(d)/wiring_analog.o $(d)/wiring_digital.o \
 				$(d)/wiring_pulse.o $(d)/wiring_shift.o $(d)/HardwareSerial.o $(d)/Print.o   \
 				$(d)/Tone.o $(d)/WMath.o $(d)/WString.o $(d)/WInterrupts.o
 
 TGT_LIB		:= $(TGT_LIB) $(TGTS_$(d))
 
-CLEAN		:= $(CLEAN) $(TGTS_$(d)) $(DEPS_$(d)
+CLEAN		:= $(CLEAN) $(TGTS_$(d)) $(OBJS_$(d))
 
 # Local rules
 
-$(TGTS_$(d)):	$(DEPS_$(d))
+$(TGTS_$(d)):	$(OBJS_$(d))
 		$(ARCH)
 
 $(d)/%.o:	CF_TGT := -I$(ARDUINO_CORE)
