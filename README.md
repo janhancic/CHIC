@@ -1,7 +1,7 @@
 non-recursive Arduino Makefile build
 ====
 
-This is a very simple, modular non-recursife Makefile build for Arduino applications based on the [template and suggestions of Emilie van Bergen](http://evbergen.home.xs4all.nl/nonrecursive-make.html).
+This is a very simple, modular non-recursive Makefile build for Arduino applications based on the [template and suggestions of Emilie van Bergen](http://evbergen.home.xs4all.nl/nonrecursive-make.html).
 After looking at several Makefile builds for Arduino sketches, I decided that none of them does what I want/need or does it in a way I didn't like. Therefore I decided to write my own one.
 
 Usage
