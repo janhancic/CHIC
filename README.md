@@ -17,4 +17,7 @@ On linux (Using fedora and installing the arduino rpm) the location would be
 	
 	ARDUINO_DIR	= /usr/share/arduino
 
-You can find more information about how the build works at the website mentioned above
+Currently the build is for arduino uno, but can easily be adjusted by modifying the global variables in the top level makefile. In order to compile and upload the program, following commands are required.
+
+	make		# compiles the target $(TGT_UP) with flags specified in the top-level Makefile 
+	make upload	# creates the hex file out of $(TGT_UP) and uploads it on the port $(ARDUINO_PORT)
