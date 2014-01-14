@@ -27,7 +27,7 @@ UPLOAD		= $(AVRDUDE) $(UP_ALL)
 ARDUINO_CORE	= $(ARDUINO_DIR)/hardware/arduino/cores/arduino
 ARDUINO_VARIANT	= $(ARDUINO_DIR)/hardware/arduino/variants/standard
 
-ARDUINO_PORT	= /dev/cu.usbmodemfd131
+ARDUINO_PORT	= /dev/ttyACM4
 TGT_UP		= src/chic.hex
 
 ### Standard parts

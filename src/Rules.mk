@@ -1,8 +1,8 @@
 # Standard things
 
-sp			:= $(sp).x
-dirstack	:= $(d)
-d			:= $(dir)
+sp					:= $(sp).x
+dirstack_$(sp)	:= $(d)
+d					:= $(dir)
 
 # Local rules and targets
 
