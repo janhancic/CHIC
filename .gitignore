@@ -12,3 +12,8 @@ chic
 *.elf
 *.hex
 *.a
+
+
+# special vim files
+*un~
+tags
