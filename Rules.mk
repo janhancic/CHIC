@@ -14,7 +14,7 @@ dir		:= src
 
 # General directory independent rules
 
-%.o:		%.c
+%.o:		%.c 
 			$(COMP)
 
 %:			%.o
