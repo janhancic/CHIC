@@ -1,5 +1,5 @@
 ### Board specific config
-MCU		= atmega328p
+MCU			= atmega328p
 CPU_SPEED	= 16000000UL
 
 ### Build flags for all targets 
@@ -28,7 +28,7 @@ ARDUINO_CORE	= $(ARDUINO_DIR)/hardware/arduino/cores/arduino
 ARDUINO_VARIANT	= $(ARDUINO_DIR)/hardware/arduino/variants/standard
 
 ARDUINO_PORT	= /dev/ttyACM4
-TGT_UP		= src/chic.hex
+TGT_UP			= src/chic.hex
 
 ### Standard parts
 include Rules.mk

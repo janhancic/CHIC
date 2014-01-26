@@ -1,10 +1,9 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <check.h>
 
 START_TEST (dummy_test)
 {
-	printf("hello World");
+	ck_assert_int_eq(1,21);
 }
 END_TEST
 
