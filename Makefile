@@ -18,16 +18,16 @@ AVRDUDE		= avrdude
 COMP		= $(CC) $(CF_ALL) $(CF_TGT) -o $@ -c $<
 LINK		= $(CC) $(LF_ALL) $(LF_TGT) -o $@ $^ $(LL_LGT) $(LL_ALL)
 COMPLINK	= $(CC) $(CF_ALL) $(CF_TGT) $(LF_TGT) -o $@ $< $(LL_TGT) $(LL_ALL)
-OBJCPY		= $(OC) $(OC_ALL) $(OC_TGT) $< $@
+OBJCPY	= $(OC) $(OC_ALL) $(OC_TGT) $< $@
 ARCH		= $(AR) $(AF_ALL) $@ $^
-UPLOAD		= $(AVRDUDE) $(UP_ALL)
+UPLOAD	= $(AVRDUDE) $(UP_ALL)
 
 ### global variables
 
 ARDUINO_CORE	= $(ARDUINO_DIR)/hardware/arduino/cores/arduino
 ARDUINO_VARIANT	= $(ARDUINO_DIR)/hardware/arduino/variants/standard
 
-ARDUINO_PORT	= /dev/ttyACM4
+ARDUINO_PORT	= /dev/ttyACM3
 TGT_UP		= src/chic.hex
 
 ### Standard parts

@@ -16,7 +16,7 @@ $(TGTS_$(d)): $(TGTS_$(d):%.hex=%.elf)
 
 $(TGTS_$(d):%.hex=%.elf):	CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT)
 $(TGTS_$(d):%.hex=%.elf):	LL_TGT := lib/core/libcore.a
-$(TGTS_$(d):%.hex=%.elf):	$(d)/chic.cpp lib/core/libcore.a
+$(TGTS_$(d):%.hex=%.elf):	$(d)/chic.cpp lib/core/libcore.a 
 							$(COMPLINK)
 
 # Standard things
