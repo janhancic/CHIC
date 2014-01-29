@@ -1,14 +1,14 @@
 # Standard things
 
-sp					:= $(sp).x
+sp						:= $(sp).x
 dirstack_$(sp)		:= $(d)
-d					:= $(dir)
+d						:= $(dir)
 
 # Local variables
 
 TGTS_$(d)	:= $(d)/MPU6050.o 
 TGT_LIB		:= $(TGT_LIB) $(TGTS_$(d))
-CLEAN		:= $(CLEAN) $(TGTS_$(d))
+CLEAN			:= $(CLEAN) $(TGTS_$(d))
 
 # Local rules
 
