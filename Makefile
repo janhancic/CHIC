@@ -3,9 +3,9 @@ MCU			= atmega328p
 CPU_SPEED	= 16000000UL
 
 ### Build flags for all targets 
-CF_ALL		= -Wall -mmcu=$(MCU) -DF_CPU=$(CPU_SPEED) -Os
+CF_ALL		= -Wall -mmcu=$(MCU) -DF_CPU=$(CPU_SPEED) -Os 
 LF_ALL		=
-LL_ALL		=
+LL_ALL		= 
 AF_ALL		= rcs
 UP_ALL		= -V -F -p m328p -c arduino -b 115200 -P$(ARDUINO_PORT)
 
