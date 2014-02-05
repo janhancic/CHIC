@@ -46,7 +46,9 @@ flags = [
 '-I',
 '/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/cores/arduino',
 '-I',
-'/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/variants/standard'
+'/Applications/Arduino.app/Contents/Resources/Java/hardware/arduino/variants/standard',
+'-I',
+'src',
 ]
 
 

@@ -3,7 +3,7 @@ MCU			= atmega328p
 CPU_SPEED	= 16000000UL
 
 ### Build flags for all targets 
-CF_ALL		= -Wall -mmcu=$(MCU) -DF_CPU=$(CPU_SPEED) -Os 
+CF_ALL		= -Wall -mmcu=$(MCU) -DF_CPU=$(CPU_SPEED) -Os -fdata-sections -ffunction-sections -Wl,--gc-sections 
 LF_ALL		=
 LL_ALL		= 
 AF_ALL		= rcs
@@ -15,16 +15,16 @@ CC		= avr-gcc
 AR		= avr-ar
 OC		= avr-objcopy
 AVRDUDE		= avrdude
-COMP		= $(CC) $(CF_ALL) $(CF_TGT) -o $@ -c $<
-LINK		= $(CC) $(LF_ALL) $(LF_TGT) -o $@ $^ $(LL_LGT) $(LL_ALL)
-COMPLINK	= $(CC) $(CF_ALL) $(CF_TGT) $(LF_TGT) -o $@ $< $(LL_TGT) $(LL_ALL)
+COMP			= $(CC) $(CF_ALL) $(CF_TGT) -o $@ -c $<
+LINK			= $(CC) $(LF_ALL) $(LF_TGT) -o $@ $^ $(LL_LGT) $(LL_ALL)
+COMPLINK		= $(CC) $(CF_ALL) $(CF_TGT) $(LF_TGT) -o $@ $< $(LL_TGT) $(LL_ALL)
 OBJCPY		= $(OC) $(OC_ALL) $(OC_TGT) $< $@
-ARCH		= $(AR) $(AF_ALL) $@ $^
+ARCH			= $(AR) $(AF_ALL) $@ $^
 UPLOAD		= $(AVRDUDE) $(UP_ALL)
 
 ### global variables
 
-ARDUINO_CORE	= $(ARDUINO_DIR)/hardware/arduino/cores/arduino
+ARDUINO_CORE		= $(ARDUINO_DIR)/hardware/arduino/cores/arduino
 ARDUINO_VARIANT	= $(ARDUINO_DIR)/hardware/arduino/variants/standard
 
 ARDUINO_PORT	= /dev/ttyACM4
