@@ -17,10 +17,9 @@ LIBS_$(d)	:= lib/core/libcore.a lib/gyro/MPU6050.o lib/i2cdev/I2Cdev.o
 $(TGTS_$(d)): $(TGTS_$(d):%.hex=%.elf) 
 			$(OBJCPY) -O ihex
 
-$(TGTS_$(d):%.hex=%.elf):	CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -Ilib/i2cdev -Ilib/gyro -I$(d)
-#$(TGTS_$(d):%.hex=%.elf):	LL_TGT := $(addprefix -L,$(LIBS_$(d)))
+$(TGTS_$(d):%.hex=%.elf):	CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -Ilib/i2cdev -Ilib/gyro 
 $(TGTS_$(d):%.hex=%.elf):	$(d)/chic.cpp $(LIBS_$(d))
-							$(COMPLINK) lib/core/libcore.a lib/gyro/MPU6050.o lib/i2cdev/I2Cdev.o 
+	$(COMPLINK) lib/gyro/MPU6050.o lib/i2cdev/I2Cdev.o -lcore 
 
 
 $(d)/dummytest.o: $(d)/tests/dummytest.c
