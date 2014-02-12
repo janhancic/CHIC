@@ -12,9 +12,9 @@ CLEAN		:= $(CLEAN) $(TGTS_$(d))
 
 # Local rules
 
-$(TGTS_$(d)):	CF_TGT := -I$(ARDUINO_VARIANT) -I$(ARDUINO_CORE) -I$(ARDUINO_DIR)/hardware/tools/include -I$(ARDUINO_DIR)/libraries/Wire
+$(TGTS_$(d)):	CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d) -I$(ARDUINO_DIR)/libraries/Wire
 $(TGTS_$(d)):	$(TGTS_$(d):.o=.cpp)
-	$(COMP) -DARDUINO=$(ARDUINO_VERSION)
+	$(COMPP)
 
 # Standard things
 

@@ -14,7 +14,10 @@ dir		:= src
 
 # General directory independent rules
 
-%.o:		%.c 
+%.o:		%.cpp
+			$(COMPP) -fno-exceptions
+
+%.o:		%.c
 			$(COMP)
 
 %:			%.o
@@ -35,7 +38,7 @@ clean:
 			
 .PHONY:		upload
 upload: 	$(TGT_UP)
-	$(UPLOAD) -U flash:w:$(TGT_UP):i
+	$(UPLOAD) -Uflash:w:$(TGT_UP):i
 
 # Prevent make from removing any build targets, include intermediate ones
 

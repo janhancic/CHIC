@@ -10,24 +10,25 @@ TGTS_$(d)	:= $(d)/libcore.a
 OBJS_$(d)	:= $(d)/CDC.o $(d)/HID.o $(d)/wiring.o $(d)/wiring_analog.o \
 				$(d)/wiring_digital.o $(d)/IPAddress.o $(d)/new.o $(d)/Stream.o $(d)/USBCore.o \
 				$(d)/wiring_pulse.o $(d)/wiring_shift.o $(d)/HardwareSerial.o $(d)/Print.o   \
-				$(d)/Tone.o $(d)/WMath.o $(d)/WInterrupts.o $(d)/HID.o $(d)/Tone.o
+				$(d)/Tone.o $(d)/WMath.o $(d)/WInterrupts.o $(d)/HID.o $(d)/Tone.o \
+				$(d)/malloc.o $(d)/realloc.o $(d)/WString.o
 
 TGT_LIB		:= $(TGT_LIB) $(TGTS_$(d))
-
 CLEAN			:= $(CLEAN) $(TGTS_$(d)) $(OBJS_$(d))
 
 # Local rules
 
-$(TGTS_$(d)):	$(OBJS_$(d))
+$(TGTS_$(d)):	$(OBJS_$(d)) $(d)/Wire.o $(d)/twi.o 
 		$(ARCH)
 
-$(d)/%.o:	CF_TGT := -I$(ARDUINO_CORE)
-$(d)/%.o:	$(ARDUINO_CORE)/%.c
-				$(COMP) -MMD 
+vpath % $(ARDUINO_CORE):$(ARDUINO_DIR)/libraries/Wire:$(ARDUINO_DIR)/libraries/Wire/utility:$(ARDUINO_CORE)/avr-libc
+$(d)/%.o:	CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_DIR)/libraries -I$(ARDUINO_DIR)/libraries/Wire/utility -I$(ARDUINO_CORE)/avr-libc
+$(d)/%.o:	%.c
+	$(COMP)
 
-$(d)/%.o:	CF_TGT := -I$(ARDUINO_VARIANT) -I$(ARDUINO_CORE) -x c++
-$(d)/%.o:	$(ARDUINO_CORE)/%.cpp
-				$(COMP) -MMD 
+$(d)/%.o:	CF_TGT := -I$(ARDUINO_VARIANT) -I$(ARDUINO_CORE) -I$(ARDUINO_DIR)/libraries -I$(ARDUINO_DIR)/libraries/Wire/utility -I$(ARDUINO_CORE)/avr-libc
+$(d)/%.o:	%.cpp
+	$(COMPP) -fno-exceptions
 
 	
 # Standard things
