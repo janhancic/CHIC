@@ -35,7 +35,7 @@ clean:
 			
 .PHONY:		upload
 upload: 	$(TGT_UP)
-			$(UPLOAD) -Uflash:w:$(TGT_UP)
+	$(UPLOAD) -U flash:w:$(TGT_UP):i
 
 # Prevent make from removing any build targets, include intermediate ones
 

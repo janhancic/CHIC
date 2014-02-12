@@ -23,11 +23,11 @@ $(TGTS_$(d)):	$(OBJS_$(d))
 
 $(d)/%.o:	CF_TGT := -I$(ARDUINO_CORE)
 $(d)/%.o:	$(ARDUINO_CORE)/%.c
-				$(COMP)
+				$(COMP) -MMD 
 
-$(d)/%.o:	CF_TGT := -I$(ARDUINO_VARIANT) -I$(ARDUINO_CORE)
+$(d)/%.o:	CF_TGT := -I$(ARDUINO_VARIANT) -I$(ARDUINO_CORE) -x c++
 $(d)/%.o:	$(ARDUINO_CORE)/%.cpp
-				$(COMP)
+				$(COMP) -MMD 
 
 	
 # Standard things
