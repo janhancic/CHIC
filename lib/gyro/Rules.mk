@@ -14,7 +14,7 @@ CLEAN			:= $(CLEAN) $(TGTS_$(d))
 
 $(TGTS_$(d)):	CF_TGT := -I$(ARDUINO_VARIANT) -I$(ARDUINO_CORE) -I$(ARDUINO_DIR)hardware/tools/include -Ilib/i2cdev
 $(TGTS_$(d)):	$(TGTS_$(d):.o=.cpp) lib/i2cdev/I2Cdev.o
-	$(COMPP)	
+	$(COMP) -fno-exceptions
 # Standard things
 
 -include	$(DEPS_$(d))

@@ -18,7 +18,6 @@ AR		= $(ARDUINO_BIN_DIR)/avr-ar
 OC		= $(ARDUINO_BIN_DIR)/avr-objcopy
 AVRDUDE		= $(ARDUINO_BIN_DIR)/avrdude 
 COMP			= $(CC) $(CF_ALL) $(CF_TGT) -o $@ -c $<
-COMPP			= $(CPP) -fno-exceptions $(CF_ALL) $(CF_TGT) -o $@ -c $<
 LINK			= $(CC) $(LF_ALL) $(LF_TGT) -o $@ $< $(LL_LGT) $(LL_ALL)
 COMPLINK		= $(CC) $(CF_ALL) $(CF_TGT) $(LF_ALL) $(LF_TGT) -o $@ $< $(LL_TGT) $(LL_ALL)
 OBJCPY		= $(OC) $(OC_ALL) $(OC_TGT) $< $@

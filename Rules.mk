@@ -15,7 +15,7 @@ dir		:= src
 # General directory independent rules
 
 %.o:		%.cpp
-			$(COMPP) -fno-exceptions
+			$(COMP) -fno-exceptions
 
 %.o:		%.c
 			$(COMP)

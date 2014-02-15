@@ -14,7 +14,7 @@ CLEAN		:= $(CLEAN) $(TGTS_$(d))
 
 $(TGTS_$(d)):	CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d) -I$(ARDUINO_DIR)/libraries/Wire
 $(TGTS_$(d)):	$(TGTS_$(d):.o=.cpp)
-	$(COMPP)
+	$(COMP) -fno-exceptions
 
 # Standard things
 
