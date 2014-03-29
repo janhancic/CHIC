@@ -30,10 +30,10 @@ $(d)/%.o:	CF_TGT := -I$(ARDUINO_VARIANT) -I$(ARDUINO_CORE)
 $(d)/%.o:	$(ARDUINO_CORE)/%.cpp
 				$(COMP)
 
-$(d)/$(addsuffix .o, $(ARDUINO_LIBS)):	CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) 
-$(d)/$(addsuffix .o, $(ARDUINO_LIBS)):	CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS))
-$(d)/$(addsuffix .o, $(ARDUINO_LIBS)):	CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(addsuffix /utility, $(ARDUINO_LIBS)))
-$(d)/$(addsuffix .o, $(ARDUINO_LIBS)):	$(ARDUINO_LIB_DIR)/Servo/Servo.cpp
+$(d)/%.o:	CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) 
+$(d)/%.o:	CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS))
+$(d)/%.o:	CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(addsuffix /utility, $(ARDUINO_LIBS)))
+$(d)/%.o:	$(ARDUINO_LIB_DIR)/*/%.cpp
 				$(COMP)
 
 # Standard things

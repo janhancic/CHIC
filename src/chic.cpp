@@ -19,10 +19,10 @@ void loop()
 {
    Serial.println("Hello World");
    digitalWrite(13, HIGH);
-   //myServo.write(20);
+   myServo.write(20);
    delay(1000);   
    digitalWrite(13, LOW);
-   //myServo.write(150);
+   myServo.write(150);
    delay(1000);
 }
 
