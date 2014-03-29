@@ -12,7 +12,7 @@ UP_ALL		= -V -F -D -p $(MCU) -c arduino -b 115200 -P$(ARDUINO_PORT)
 
 
 ### Build tools
-CC		= avr-gcc
+CC		= $(ARDUINO_BIN_DIR)avr-gcc
 AR		= avr-ar
 OC		= avr-objcopy
 AVRDUDE		= avrdude
@@ -25,8 +25,12 @@ UPLOAD	= $(AVRDUDE) $(UP_ALL)
 
 ### global variables
 
-ARDUINO_CORE	= $(ARDUINO_DIR)/hardware/arduino/cores/arduino
+ARDUINO_CORE		= $(ARDUINO_DIR)/hardware/arduino/cores/arduino
 ARDUINO_VARIANT	= $(ARDUINO_DIR)/hardware/arduino/variants/standard
+ARDUINO_LIB_DIR 	= $(ARDUINO_DIR)/libraries
+ARDUINO_BIN_DIR   = $(ARDUINO_DIR)/hardware/tools/avr/bin/
+
+ARDUINO_LIBS 		= Servo 
 
 ARDUINO_PORT	= /dev/tty.usbmodemfa141
 TGT_UP		= src/chic.hex

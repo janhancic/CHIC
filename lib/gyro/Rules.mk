@@ -6,16 +6,14 @@ d					:= $(dir)
 
 # Local variables
 
-OBJS_$(d)	:= $(d)/mpu6050.o 
-
-CLEAN		:= $(CLEAN) $(OBJS_$(d))
+TGTS_$(d)	:= $(d)/MPU6050.o 
+TGT_LIB		:= $(TGT_LIB) $(TGTS_$(d))
+CLEAN			:= $(CLEAN) $(TGTS_$(d))
 
 # Local rules
-#-I$(ARDUINO_VARIANT) -I$(ARDUINO_CORE)
-$(d)/mpu6050.o:	CF_TGT := -I$(d)/*.h -I$(d)I2Cdev/I2Cdev.h -I$(ARDUINO_VARIANT) -I$(ARDUINO_CORE)
-$(d)/mpu6050.o:	$(d)/MPU6050.cpp $(d)/I2Cdev/I2Cdev.cpp	
-				$(COMP)
-	
+$(TGTS_$(d)):	CF_TGT := -I$(ARDUINO_VARIANT) -I$(ARDUINO_CORE) -I$(ARDUINO_DIR)hardware/tools/include -Ilib/i2cdev
+$(TGTS_$(d)):	$(TGTS_$(d):.o=.cpp) lib/i2cdev/I2Cdev.o
+	$(COMP) -fno-exceptions
 # Standard things
 
 -include	$(DEPS_$(d))

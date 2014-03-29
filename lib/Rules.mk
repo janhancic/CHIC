@@ -12,6 +12,9 @@ include		$(dir)/Rules.mk
 dir			:= $(d)/gyro
 include		$(dir)/Rules.mk
 
+dir			:= $(d)/i2cdev
+include		$(dir)/Rules.mk
+
 # Standard things
 
 -include	$(DEPS_$(d))

@@ -44,6 +44,7 @@ THE SOFTWARE.
 */
 
 #include "I2Cdev.h"
+#incluce <stdlib.h>
 
 #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
 
