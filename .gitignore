@@ -12,6 +12,8 @@ chic
 *.elf
 *.hex
 *.a
+*.eep
+*.d
 
 
 # special vim files
