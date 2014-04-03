@@ -19,13 +19,16 @@ void Motor::start() {
    if (_armed == true) {
       return;
    }
-
    
 
    delay(2000);
    while (_current_speed < _idle_speed) {
       _current_speed += 1;
       _motor.write(_current_speed);
+
+      Servo myServo;
+      myServo.
+
       delay(100);
    }
 
