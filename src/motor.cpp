@@ -20,6 +20,8 @@ void Motor::start() {
       return;
    }
 
+   
+
    delay(2000);
    while (_current_speed < _idle_speed) {
       _current_speed += 1;

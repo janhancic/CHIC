@@ -7,6 +7,7 @@ class Motor {
       int   _idle_speed;
       int   _current_speed;
       bool  _armed;
+      bool  _arming;
 
    public:
       Motor(int pin_number, int idle_speed);
