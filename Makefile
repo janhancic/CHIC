@@ -26,14 +26,15 @@ UPLOAD	= $(AVRDUDE) $(UP_ALL)
 
 ARDUINO_CORE		= $(ARDUINO_DIR)/hardware/arduino/cores/arduino
 ARDUINO_VARIANT	= $(ARDUINO_DIR)/hardware/arduino/variants/standard
-ARDUINO_BIN_DIR   = $(ARDUINO_DIR)/hardware/tools/avr/bin/
+#ARDUINO_BIN_DIR   = $(ARDUINO_DIR)/hardware/tools/avr/bin/
 ARDUINO_LIB_DIR 	= $(ARDUINO_DIR)/libraries
 
 
 ARDUINO_LIBS 		= Servo Wire 
 ARDUINO_VERSION 	= 105
 
-ARDUINO_PORT	= /dev/tty.usbmodemfa141
+#ARDUINO_PORT	= /dev/tty.usbmodemfa141
+ARDUINO_PORT	= /dev/ttyACM4
 TGT_UP		= src/chic.hex
 
 ### Standard parts

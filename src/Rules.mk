@@ -14,7 +14,7 @@ LIBS_$(d)	:= lib/core/libcore.a lib/gyro/MPU6050.o lib/i2cdev/I2Cdev.o
 
 $(TGTS_$(d):%.hex=%.o):	CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT)
 $(TGTS_$(d):%.hex=%.o):	CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS))
-$(TGTS_$(d):%.hex=%.o):	$(d)/chic.cpp
+$(TGTS_$(d):%.hex=%.o):	$(d)/chic.cpp $(d)/motor.cpp
 	$(COMP)
 
 $(TGTS_$(d):%.hex=%.elf): LF_TGT := -Wl,--gc-sections

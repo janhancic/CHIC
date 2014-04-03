@@ -1,0 +1,44 @@
+#include <Arduino.h>
+#include "HardwareSerial.h"
+#include <Servo.h>
+
+
+Servo myServo;
+int speed = 0;
+int i = 0;
+
+void setup()   {
+   Serial.begin(9600); 
+   pinMode(13, OUTPUT);
+   myServo.attach(9);
+
+   myServo.write(0);
+
+}
+
+// the loop() method runs over and over again,
+// as long as the Arduino has power
+
+void loop()
+{
+   Serial.println("Hello World");
+
+   if ( speed < 80 ) {
+      speed+=10;
+      myServo.write(speed);
+   }
+   digitalWrite(13, i ? LOW : HIGH);
+
+   i = i ? 0 : 1;
+   delay(1000);
+}
+
+int main() {
+	init();
+	setup();
+
+	while(1) loop();
+
+	return 0;
+
+}
