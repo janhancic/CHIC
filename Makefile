@@ -3,7 +3,7 @@ MCU			= atmega328p
 CPU_SPEED	= 16000000UL
 
 ### Build flags for all targets 
-CF_ALL		= -c -g -Os -Wall -mmcu=$(MCU) -DF_CPU=$(CPU_SPEED) -DARDUINO=$(ARDUINO_VERSION)
+CF_ALL		= -g -Os -Wall -mmcu=$(MCU) -DF_CPU=$(CPU_SPEED) -DARDUINO=$(ARDUINO_VERSION)
 LF_ALL		= -Os -mmcu=$(MCU)
 LL_ALL		=
 AF_ALL		= rcs
@@ -16,7 +16,7 @@ AR		= avr-ar
 OC		= avr-objcopy
 AVRDUDE		= avrdude
 COMP		= $(CC) $(CF_ALL) $(CF_TGT) -o $@ -c $<
-LINK		= $(CC) $(LF_ALL) $(LF_TGT) -o $@ $< $(LL_LGT) $(LL_ALL)
+LINK		= $(CC) $(LF_ALL) $(LF_TGT) -o $@ $^ $(LL_LGT) $(LL_ALL)
 COMPLINK	= $(CC) $(CF_ALL) $(CF_TGT) $(LF_ALL) $(LF_TGT) -o $@ $< $(LL_TGT) $(LL_ALL)
 OBJCPY	= $(OC) $(OC_ALL) $(OC_TGT) $< $@
 ARCH		= $(AR) $(AF_ALL) $@ $^

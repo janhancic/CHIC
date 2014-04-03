@@ -1,4 +1,8 @@
+#include <Arduino.h>
 #include <Servo.h>
+
+#ifndef __motor_h
+#define __motor_h
 
 class Motor {
    private:
@@ -18,3 +22,5 @@ class Motor {
       int   get_speed();
       ~Motor();
 };
+
+#endif
