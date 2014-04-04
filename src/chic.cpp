@@ -1,4 +1,4 @@
-#include <Arduino.h>
+#include <WrapArduino.h>
 #include "motor.h"
 
 #define MOTOR1_PIN 9

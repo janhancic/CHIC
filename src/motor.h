@@ -1,5 +1,5 @@
-#include <Arduino.h>
-#include <Servo.h>
+#include <WrapArduino.h>
+#include <WrapServo.h>
 
 #ifndef __motor_h
 #define __motor_h

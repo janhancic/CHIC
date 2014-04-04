@@ -27,7 +27,7 @@ dir		:= src
 # fragments in the various subdirectories.
 
 .PHONY:		targets
-targets:	$(TGT_BIN) $(TGT_SBIN) $(TGT_ETC) $(TGT_LIB)
+targets:	$(TGT_BIN) $(TGT_SBIN) $(TGT_ETC) $(TGT_LIB) $(TESTS)
 
 .PHONY:		clean
 clean:

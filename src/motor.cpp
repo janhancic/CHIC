@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include "motor.h"
 
 Motor::Motor(int pin_number, int idle_speed) {
@@ -25,9 +24,6 @@ void Motor::start() {
    while (_current_speed < _idle_speed) {
       _current_speed += 1;
       _motor.write(_current_speed);
-
-      Servo myServo;
-      myServo.
 
       delay(100);
    }

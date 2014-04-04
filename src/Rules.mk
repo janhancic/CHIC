@@ -8,10 +8,15 @@ d					:= $(dir)
 
 TGTS_$(d)	:= $(d)/chic.hex
 
-TGT_BIN		:= $(TGT_BIN) $(TGTS_$(d))
 LIBS_$(d)	:= lib/core/libcore.a lib/gyro/MPU6050.o lib/i2cdev/I2Cdev.o
-OBJS_$(d)	:= $(patsubst %.cpp,%.o,$(wildcard $(d)/*.cpp))
-CLEAN			:= $(CLEAN) $(TGTS_$(d)) $(TGTS_$(d):%.hex=%.elf) $(OBJS_$(d))
+TESTSRC_$(d):= $(wildcard $(d)/test_*.cpp)
+SRCS_$(d)	:= $(wildcard $(d)/*.cpp)
+OBJS_$(d)	:= $(patsubst %.cpp,%.o,$(filter-out $(TESTSRC_$(d)), $(wildcard $(d)/*.cpp)))
+TESTS_$(d)	:= $(patsubst $(d)/test_%.cpp,%.test,$(TESTSRC_$(d)))
+
+TGT_BIN		:= $(TGT_BIN) $(TGTS_$(d))
+TESTS			:= $(TESTS) $(TESTS_$(d))
+CLEAN			:= $(CLEAN) $(TGTS_$(d)) $(TGTS_$(d):%.hex=%.elf) $(OBJS_$(d)) $(TESTS_$(d))
 
 $(OBJS_$(d)): CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d)
 $(OBJS_$(d)): CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS))
@@ -29,6 +34,13 @@ $(TGTS_$(d):%.hex=%.eep): $(TGTS_$(d))
 $(TGTS_$(d)): OC_TGT := -O ihex -R .eeprom
 $(TGTS_$(d)): $(TGTS_$(d):%.hex=%.elf)
 	$(OBJCPY)
+
+
+$(d)/$(TESTS_$(d)): CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d)/wrapper -Ilib/catch -D_TESTING
+$(d)/$(TESTS_$(d)): %.test : %.cpp
+	$(TESTCOMP)	$(patsubst src/%, src/test_%, $<)
+	@chmod +x $@
+	@./$@
 
 # Standard things
 

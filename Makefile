@@ -11,16 +11,18 @@ UP_ALL		= -V -F -D -p $(MCU) -c arduino -b 115200 -P$(ARDUINO_PORT)
 
 
 ### Build tools
-CC		= $(ARDUINO_BIN_DIR)avr-gcc
+CC		= $(ARDUINO_BIN_DIR)avr-g++
+CXX	= g++
 AR		= avr-ar
 OC		= avr-objcopy
 AVRDUDE		= avrdude
-COMP		= $(CC) $(CF_ALL) $(CF_TGT) -o $@ -c $<
-LINK		= $(CC) $(LF_ALL) $(LF_TGT) -o $@ $^ $(LL_LGT) $(LL_ALL)
-COMPLINK	= $(CC) $(CF_ALL) $(CF_TGT) $(LF_ALL) $(LF_TGT) -o $@ $< $(LL_TGT) $(LL_ALL)
-OBJCPY	= $(OC) $(OC_ALL) $(OC_TGT) $< $@
-ARCH		= $(AR) $(AF_ALL) $@ $^
-UPLOAD	= $(AVRDUDE) $(UP_ALL)
+COMP			= $(CC) $(CF_ALL) $(CF_TGT) -o $@ -c $<
+LINK			= $(CC) $(LF_ALL) $(LF_TGT) -o $@ $^ $(LL_LGT) $(LL_ALL)
+COMPLINK		= $(CC) $(CF_ALL) $(CF_TGT) $(LF_ALL) $(LF_TGT) -o $@ $< $(LL_TGT) $(LL_ALL)
+OBJCPY		= $(OC) $(OC_ALL) $(OC_TGT) $< $@
+ARCH			= $(AR) $(AF_ALL) $@ $^
+UPLOAD		= $(AVRDUDE) $(UP_ALL)
+TESTCOMP		= $(CXX) -g -Os -Wall  $(CF_TGT) -o $@ $^
 
 ### global variables
 
