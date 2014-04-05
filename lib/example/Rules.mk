@@ -6,13 +6,13 @@ d						:= $(dir)
 
 # Local variables
 
-TGTS_$(d)	:= $(d)/I2Cdev.o
+TGTS_$(d)	:= $(d)/example.o
 TGT_LIB		:= $(TGT_LIB) $(TGTS_$(d))
 CLEAN			:= $(CLEAN) $(TGTS_$(d))
 
 # Local rules
 
-$(TGTS_$(d)):	CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d) -I$(ARDUINO_LIB_DIR)/Wire
+$(TGTS_$(d)):	CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d)
 $(TGTS_$(d)):	$(TGTS_$(d):.o=.cpp)
 	$(COMP) -fno-exceptions
 

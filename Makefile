@@ -32,12 +32,12 @@ ARDUINO_VARIANT	= $(ARDUINO_DIR)/hardware/arduino/variants/standard
 ARDUINO_LIB_DIR 	= $(ARDUINO_DIR)/libraries
 
 
-ARDUINO_LIBS 		= Servo Wire 
+ARDUINO_LIBS 		= Servo
 ARDUINO_VERSION 	= 105
 
 #ARDUINO_PORT	= /dev/tty.usbmodemfa141
 ARDUINO_PORT	= /dev/ttyACM4
-TGT_UP		= src/chic.hex
+TGT_UP		= src/main.hex
 
 ### Standard parts
 include Rules.mk

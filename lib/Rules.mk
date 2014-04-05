@@ -9,10 +9,10 @@ d					:= $(dir)
 dir			:= $(d)/core
 include		$(dir)/Rules.mk
 
-dir			:= $(d)/gyro
+dir			:= $(d)/catch
 include		$(dir)/Rules.mk
 
-dir			:= $(d)/i2cdev
+dir			:= $(d)/example
 include		$(dir)/Rules.mk
 
 # Standard things

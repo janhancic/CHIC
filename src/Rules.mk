@@ -6,19 +6,19 @@ d					:= $(dir)
 
 # Local rules and targets
 
-TGTS_$(d)	:= $(d)/chic.hex
+TGTS_$(d)	:= $(d)/main.hex
 
-LIBS_$(d)	:= lib/core/libcore.a lib/gyro/MPU6050.o lib/i2cdev/I2Cdev.o
+LIBS_$(d)	:= lib/core/libcore.a lib/example/example.o 
 TESTSRC_$(d):= $(wildcard $(d)/test_*.cpp)
 SRCS_$(d)	:= $(wildcard $(d)/*.cpp)
 OBJS_$(d)	:= $(patsubst %.cpp,%.o,$(filter-out $(TESTSRC_$(d)), $(wildcard $(d)/*.cpp)))
 TESTS_$(d)	:= $(patsubst $(d)/test_%.cpp,%.test,$(TESTSRC_$(d)))
 
 TGT_BIN		:= $(TGT_BIN) $(TGTS_$(d))
-TESTS			:= $(TESTS) $(TESTS_$(d))
-CLEAN			:= $(CLEAN) $(TGTS_$(d)) $(TGTS_$(d):%.hex=%.elf) $(OBJS_$(d)) $(TESTS_$(d))
+TESTS			:= $(TESTS) $(patsubst %, src/%,$(TESTS_$(d)))
+CLEAN			:= $(CLEAN) $(TGTS_$(d)) $(TGTS_$(d):%.hex=%.elf) $(OBJS_$(d)) $(patsubst %, src/%,$(TESTS_$(d)))
 
-$(OBJS_$(d)): CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d)
+$(OBJS_$(d)): CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d) -I$(d)/wrapper
 $(OBJS_$(d)): CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS))
 $(OBJS_$(d)): %.o : %.cpp
 	$(COMP)
