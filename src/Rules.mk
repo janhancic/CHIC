@@ -15,10 +15,10 @@ OBJS_$(d)	:= $(patsubst %.cpp,%.o,$(filter-out $(TESTSRC_$(d)), $(wildcard $(d)/
 TESTS_$(d)	:= $(patsubst $(d)/test_%.cpp,%.test,$(TESTSRC_$(d)))
 
 TGT_BIN		:= $(TGT_BIN) $(TGTS_$(d))
-TESTS			:= $(TESTS) $(TESTS_$(d))
-CLEAN			:= $(CLEAN) $(TGTS_$(d)) $(TGTS_$(d):%.hex=%.elf) $(OBJS_$(d)) $(TESTS_$(d))
+TESTS			:= $(TESTS) $(patsubst %, $(d)/%, $(TESTS_$(d)))
+CLEAN			:= $(CLEAN) $(TGTS_$(d)) $(TGTS_$(d):%.hex=%.elf) $(OBJS_$(d)) $(patsubst %, $(d)/%, $(TESTS_$(d)))
 
-$(OBJS_$(d)): CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d)
+$(OBJS_$(d)): CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d) -I$(d)/wrapper
 $(OBJS_$(d)): CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS))
 $(OBJS_$(d)): %.o : %.cpp
 	$(COMP)
@@ -34,7 +34,6 @@ $(TGTS_$(d):%.hex=%.eep): $(TGTS_$(d))
 $(TGTS_$(d)): OC_TGT := -O ihex -R .eeprom
 $(TGTS_$(d)): $(TGTS_$(d):%.hex=%.elf)
 	$(OBJCPY)
-
 
 $(d)/$(TESTS_$(d)): CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d)/wrapper -Ilib/catch -D_TESTING
 $(d)/$(TESTS_$(d)): %.test : %.cpp
