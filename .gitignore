@@ -12,3 +12,15 @@ chic
 *.elf
 *.hex
 *.a
+*.eep
+*.d
+*.dSYM
+
+
+# special vim files
+*un~
+tags
+.swp
+*.swp
+.swo
+*.pyc
