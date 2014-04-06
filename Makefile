@@ -13,9 +13,9 @@ UP_ALL		= -V -F -D -p $(MCU) -c arduino -b 115200 -P$(ARDUINO_PORT)
 ### Build tools
 CC		= $(ARDUINO_BIN_DIR)avr-g++
 CXX	= g++
-AR		= avr-ar
-OC		= avr-objcopy
-AVRDUDE		= avrdude
+AR		= $(ARDUINO_BIN_DIR)avr-ar
+OC		= $(ARDUINO_BIN_DIR)avr-objcopy
+AVRDUDE		= $(ARDUINO_BIN_DIR)avrdude
 COMP			= $(CC) $(CF_ALL) $(CF_TGT) -o $@ -c $<
 LINK			= $(CC) $(LF_ALL) $(LF_TGT) -o $@ $^ $(LL_LGT) $(LL_ALL)
 COMPLINK		= $(CC) $(CF_ALL) $(CF_TGT) $(LF_ALL) $(LF_TGT) -o $@ $< $(LL_TGT) $(LL_ALL)
@@ -26,10 +26,17 @@ TESTCOMP		= $(CXX) -g -Os -Wall  $(CF_TGT) -o $@ $^
 
 ### global variables
 
+ifndef ARDUINO_CORE
 ARDUINO_CORE		= $(ARDUINO_DIR)/hardware/arduino/cores/arduino
+endif
+ifndef ARDUINO_VARIANT
 ARDUINO_VARIANT	= $(ARDUINO_DIR)/hardware/arduino/variants/standard
-#ARDUINO_BIN_DIR   = $(ARDUINO_DIR)/hardware/tools/avr/bin/
+endif
+ifndef ARDUINO_LIB_DIR
 ARDUINO_LIB_DIR 	= $(ARDUINO_DIR)/libraries
+endif
+
+#ARDUINO_BIN_DIR   = $(ARDUINO_DIR)/hardware/tools/avr/bin/
 
 
 ARDUINO_LIBS 		= Servo
