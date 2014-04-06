@@ -32,7 +32,7 @@ If you install the avr libraries on OSX via brew for example, the binaries might
 
 The default make target compiles everything. And in order to upload the application to an arduino, the upload target is the one to use.
 
-	make		   # compiles the target $(TGT_UP) with flags specified in the top-level Makefile 
+	make		# compiles the target $(TGT_UP) with flags specified in the top-level Makefile 
 	make upload	# creates the hex file out of $(TGT_UP) and uploads it on the port $(ARDUINO_PORT)
 
 Testing
