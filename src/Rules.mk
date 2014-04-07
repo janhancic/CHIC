@@ -35,12 +35,14 @@ $(TGTS_$(d)): OC_TGT := -O ihex -R .eeprom
 $(TGTS_$(d)): $(TGTS_$(d):%.hex=%.elf)
 	$(OBJCPY)
 
+define test_target
+$(d)/$1: CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d)/wrapper -Ilib/catch -D_TESTING
+$(d)/$1: $(d)/$(1:%.test=%.cpp) $(d)/test_$(1:%.test=%.cpp)
+	$(CXX) -g -O3 -Wall $$(CF_TGT) -o $$@ $$^
+	@./$$@
+endef
 
-$(d)/$(TESTS_$(d)): CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d)/wrapper -Ilib/catch -D_TESTING
-$(d)/$(TESTS_$(d)): %.test : %.cpp
-	$(TESTCOMP)	$(patsubst src/%, src/test_%, $<)
-	@chmod +x $@
-	@./$@
+$(foreach T,$(TESTS_$(d)),$(eval $(call test_target,$T)))
 
 # Standard things
 
