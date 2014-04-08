@@ -14,7 +14,9 @@ chic
 *.a
 *.eep
 *.d
-
+*.test
+*.dSYM
+*.test
 
 # special vim files
 *un~
