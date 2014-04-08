@@ -22,7 +22,6 @@ COMPLINK		= $(CC) $(CF_ALL) $(CF_TGT) $(LF_ALL) $(LF_TGT) -o $@ $< $(LL_TGT) $(L
 OBJCPY		= $(OC) $(OC_ALL) $(OC_TGT) $< $@
 ARCH			= $(AR) $(AF_ALL) $@ $^
 UPLOAD		= $(AVRDUDE) $(UP_ALL)
-TESTCOMP		= $(CXX) -g -Os -Wall  $(CF_TGT) -o $@ $^
 
 ### global variables
 
