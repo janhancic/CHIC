@@ -16,7 +16,7 @@ chic
 *.d
 *.test
 *.dSYM
-
+*.test
 
 # special vim files
 *un~

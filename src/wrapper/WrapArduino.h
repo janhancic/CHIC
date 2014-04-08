@@ -5,7 +5,11 @@
 #include "Arduino.h"
 #else
 
-void delay(int);
+#define OUTPUT -10
+#define HIGH 1
+#define LOW 0
+
+void delay(int time);
 
 #endif
 #endif /* __WRAP_ARDUINO_H__ */
