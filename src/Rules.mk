@@ -10,7 +10,6 @@ TGTS_$(d)	:= $(d)/main.hex
 
 LIBS_$(d)	:= lib/core/libcore.a lib/example/example.o 
 TESTSRC_$(d):= $(wildcard $(d)/test_*.cpp)
-SRCS_$(d)	:= $(wildcard $(d)/*.cpp)
 OBJS_$(d)	:= $(patsubst %.cpp,%.o,$(filter-out $(TESTSRC_$(d)), $(wildcard $(d)/*.cpp)))
 TESTS_$(d)	:= $(patsubst $(d)/test_%.cpp,%.test,$(TESTSRC_$(d)))
 
