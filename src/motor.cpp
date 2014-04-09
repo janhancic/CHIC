@@ -1,10 +1,14 @@
 #include "motor.h"
 
+bool on = false;
+bool started = false;
+
 Motor::Motor(int pin_number, int idle_speed) {
    this->_idle_speed    = idle_speed; 
    this->_pin_number    = pin_number;
    this->_current_speed = 0;
-   this->_armed = false;
+   this->_sync_interval = 50;
+   this->_sleep_millis  = 2000;
 
    if ( _idle_speed > 180 ) {
       //TODO: handle error
@@ -12,23 +16,31 @@ Motor::Motor(int pin_number, int idle_speed) {
 
    _motor.attach(_pin_number);
    _motor.write(_current_speed);
+
+   this->_sync_last_time = millis();
 }
 
 void Motor::start() {
-   if (_armed == true) {
-      return;
+   long current_time = millis();
+   long time_diff = current_time - _sync_last_time;
+
+   if ( started ) return;
+
+   if( ( _sleep_millis < 0 && time_diff >= _sync_interval ) || ( _sleep_millis >= 0 && time_diff >= _sleep_millis ) ) {
+      _sleep_millis = -1;
+
+      if( _current_speed >= _idle_speed ) {
+         _current_speed = _idle_speed;
+         //TODO: point to other synchronise now
+         started = true;
+      }
+
+      _motor.write(++_current_speed);
+      _sync_last_time = current_time;
+
+      on = !on;
+      digitalWrite(13, on ? HIGH : LOW);
    }
-   
-
-   delay(2000);
-   while (_current_speed < _idle_speed) {
-      _current_speed += 1;
-      _motor.write(_current_speed);
-
-      delay(100);
-   }
-
-   _armed = true;
 }
 
 void Motor::stop() {

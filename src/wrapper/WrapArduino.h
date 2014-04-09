@@ -10,6 +10,8 @@
 #define LOW 0
 
 void delay(int time);
+long millis();
+void digitalWrite(int, int);
 
 #endif
 #endif /* __WRAP_ARDUINO_H__ */

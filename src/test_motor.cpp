@@ -13,7 +13,14 @@ void Servo::attach(int pin) {
 void Servo::write(int pos) {
 }
 
-Motor motor = Motor::Motor(1, 10);
+long millis() {
+   return 10;
+}
+
+void digitalWrite(int pin, int high) {
+}
+
+Motor motor = Motor(1, 10);
 
 TEST_CASE( "motor set_speed sets speed", "[set_speed]" ) {
    motor.set_speed(100);
