@@ -5,16 +5,15 @@
 #define MOTOR2_PIN 5
 #define MOTOR3_PIN 6
 #define MOTOR4_PIN 9
-#define MOTOR1_IDLE_SPEED 60
-#define MOTOR2_IDLE_SPEED 60
-#define MOTOR3_IDLE_SPEED 60
-#define MOTOR4_IDLE_SPEED 60
+#define MOTOR1_IDLE_SPEED 45
+#define MOTOR2_IDLE_SPEED 45
+#define MOTOR3_IDLE_SPEED 45
+#define MOTOR4_IDLE_SPEED 45
 
 Motor *motor1;
 Motor *motor2;
 Motor *motor3;
 Motor *motor4;
-int armed = 0;
 
 void setup() {
    pinMode(13, OUTPUT);   
