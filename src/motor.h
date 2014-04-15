@@ -1,5 +1,6 @@
-#include <WrapArduino.h>
-#include <WrapServo.h>
+#include "WrapArduino.h"
+#include "eventdispatcher.h"
+#include "WrapServo.h"
 
 #ifndef __motor_h
 #define __motor_h
@@ -19,7 +20,7 @@ class Motor {
       bool  _started;
 
    public:
-      Motor(int pin_number, int idle_speed);
+      Motor(Eventdispatcher *eventdispatcher, int pin_number, int idle_speed);
       
       void  start();
       void  stop();

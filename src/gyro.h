@@ -1,4 +1,5 @@
 #include "WrapArduino.h"
+#include "eventdispatcher.h"
 #include "I2CDev.h"
 #include "MPU6050.h"
 #include "Wire.h"
@@ -11,24 +12,29 @@
 #define Z_GYRO_OFFSET -85
 #define Z_ACCEL_OFFSET 1788
 
+typedef struct _orientation {
+   long w;
+   long x;
+   long y;
+   long z;
+} orientation_t;
+
+typedef struct _acceleration {
+   long x;
+   long y;
+   long z;
+} acceleration_t;
+
 class Gyro {
    private:
-      MPU6050        _mpu;
-      Quaternion     _quaternion;
-      uint16_t       _packet_size;
-      uint16_t       _fifo_count;
-      bool           _dmp_ready;
-      volatile bool  _mpu_interrupt;
-      uint8_t        _mpu_interrup_status;
-      uint8_t        _fifo_buffer[64];
-
-      void _dmp_data_ready();
-      bool _setup();
+      orientation_t orientation;
+      acceleration_t acceleration;
 
    public:
-      Gyro();
-
-      void loop();
+      Gyro(Eventdispatcher eventdispatcher);
+   
+      orientation_t get_orientaion();
+      acceleration_t get_acceleration();
 
       ~Gyro();
 };
