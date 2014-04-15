@@ -5,10 +5,10 @@
 #define MOTOR2_PIN 5
 #define MOTOR3_PIN 6
 #define MOTOR4_PIN 9
-#define MOTOR1_IDLE_SPEED 45
-#define MOTOR2_IDLE_SPEED 45
-#define MOTOR3_IDLE_SPEED 45
-#define MOTOR4_IDLE_SPEED 45
+#define MOTOR1_IDLE_SPEED 100
+#define MOTOR2_IDLE_SPEED 100
+#define MOTOR3_IDLE_SPEED 100
+#define MOTOR4_IDLE_SPEED 100
 
 Motor *motor1;
 Motor *motor2;
