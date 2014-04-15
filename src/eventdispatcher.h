@@ -5,18 +5,20 @@
 
 class Event {
    public:
-      virtual void execute(); 
-};
-
-class InternalEvent {
-   public:
-      InternalEvent(long when_millis, Event *event);
-      long  when_millis;
-      Event *event;
+      virtual void fire_event(); 
 };
 
 class Eventdispatcher {
    private:
+
+      class InternalEvent {
+         public:
+            InternalEvent(long when_millis, Event *event);
+            long  when_millis;
+            Event *event;
+      };
+
+
       InternalEvent **_always_exec;
       InternalEvent **_event_heap;
 

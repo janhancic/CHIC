@@ -38,7 +38,7 @@ endif
 #ARDUINO_BIN_DIR   = $(ARDUINO_DIR)/hardware/tools/avr/bin/
 
 
-ARDUINO_LIBS 		= Servo
+ARDUINO_LIBS 		= Servo Wire
 ARDUINO_VERSION 	= 105
 
 #ARDUINO_PORT	= /dev/tty.usbmodemfa141

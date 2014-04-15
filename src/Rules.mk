@@ -17,7 +17,7 @@ TGT_BIN		:= $(TGT_BIN) $(TGTS_$(d))
 TESTS			:= $(TESTS) $(patsubst %, $(d)/%,$(TESTS_$(d)))
 CLEAN			:= $(CLEAN) $(TGTS_$(d)) $(TGTS_$(d):%.hex=%.elf) $(OBJS_$(d)) $(patsubst %, $(d)/%,$(TESTS_$(d)))
 
-$(OBJS_$(d)): CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d) -I$(d)/wrapper
+$(OBJS_$(d)): CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d) -I$(d)/wrapper -Ilib/i2cdev -Ilib/gyro
 $(OBJS_$(d)): CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS))
 $(OBJS_$(d)): %.o : %.cpp
 	$(COMP)

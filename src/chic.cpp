@@ -10,15 +10,24 @@
 #define MOTOR3_IDLE_SPEED 100
 #define MOTOR4_IDLE_SPEED 100
 
-Drone drone;
+Drone             *drone;
+Eventdispatcher    eventdispatcher;
+
+Gyro               gyro = Gyro(&eventdispatcher);
+Motor              fl   = Motor(&eventdispatcher, MOTOR1_PIN, MOTOR1_IDLE_SPEED);
+Motor              fr   = Motor(&eventdispatcher, MOTOR2_PIN, MOTOR2_IDLE_SPEED);
+Motor              bl   = Motor(&eventdispatcher, MOTOR3_PIN, MOTOR3_IDLE_SPEED);
+Motor              br   = Motor(&eventdispatcher, MOTOR4_PIN, MOTOR4_IDLE_SPEED);
+
 
 void setup() {
-   drone.start();
+   drone = new Drone(&eventdispatcher, &gyro, &fl, &fr, &bl, &br);
+
+   drone->start();
 }
 
 void loop() {
 
-   drone.loop();
 }
 
 

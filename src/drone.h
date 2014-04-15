@@ -8,13 +8,12 @@
 
 class Drone {
    private:
-      Eventdispatcher _eventdispatcher;
-      Gyro            _gyro;
-
-      Motor *_motor_fl;
-      Motor *_motor_fr;
-      Motor *_motor_bl;
-      Motor *_motor_br;
+      Eventdispatcher   *_eventdispatcher;
+      Gyro              *_gyro;
+      Motor             *_motor_fl;
+      Motor             *_motor_fr;
+      Motor             *_motor_bl;
+      Motor             *_motor_br;
 
    public:
       Drone(Eventdispatcher *eventdispatcher, Gyro *gyro, Motor *fl, Motor *fr, Motor *bl, Motor *br);

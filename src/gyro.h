@@ -27,11 +27,11 @@ typedef struct _acceleration {
 
 class Gyro {
    private:
-      orientation_t orientation;
-      acceleration_t acceleration;
+      orientation_t  _orientation;
+      acceleration_t _acceleration;
 
    public:
-      Gyro(Eventdispatcher eventdispatcher);
+      Gyro(Eventdispatcher *eventdispatcher);
    
       orientation_t get_orientaion();
       acceleration_t get_acceleration();
