@@ -14,7 +14,7 @@ class ArraySet {
       int        _index_of(void *elem);
 
    public:
-      ArraySet();
+      ArraySet() : ArraySet(DEFAULT_SIZE) {}
       ArraySet(int initial_size);
 
       void     add(void *elem);

@@ -5,14 +5,12 @@ dirstack_$(sp)	:= $(d)
 d					:= $(dir)
 
 # Local rules and targets
+CLEAN := $(CLEAN) $(d)/arrayset.test
 
 $(d)/arrayset.test: CF_TGT := -Ilib/catch
 $(d)/arrayset.test: $(d)/arrayset.cpp $(d)/test_arrayset.cpp
-	$(CXX) -g -O3 -Wall $(CF_TGT) -o $@ $^
+	$(TESTCOMP)
 	@./$@
-
-
-$(foreach T,$(TESTS_$(d)),$(eval $(call test_target,$T)))
 
 # Standard things
 

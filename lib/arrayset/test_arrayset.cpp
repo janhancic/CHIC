@@ -3,7 +3,7 @@
 #include "arrayset.h"
 
 TEST_CASE( "adding and removing elements", "[basic]" ) {
-   ArraySet set = ArraySet(10);
+   ArraySet set = ArraySet();
 
    REQUIRE( set.size() == 10 );
    REQUIRE( set.count() == 0 );

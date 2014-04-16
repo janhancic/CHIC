@@ -1,9 +1,5 @@
 #include "arrayset.h"
 
-ArraySet::ArraySet() {
-   ArraySet(DEFAULT_SIZE);
-}
-
 ArraySet::ArraySet(int initial_size) {
    _size          = initial_size;
    _num_elements  = 0;
