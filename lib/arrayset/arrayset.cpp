@@ -16,6 +16,12 @@ void ArraySet::add(void *elem) {
    _arr[_num_elements++] = elem;
 }
 
+void* ArraySet::get(int idx) {
+   if(idx < 0 || idx >= _size) return NULL;
+
+   return _arr[idx];
+}
+
 int ArraySet::_index_of(void *elem) {
    for( int i = 0; i < _num_elements; i++ ) {
       if( _arr[i] == elem ) return i;

@@ -1,25 +1,20 @@
 #include "WrapArduino.h"
+#include "arrayset.h"
 
 #ifndef __eventdispatcher_h
 #define __eventdispatcher_h
 
+enum EventEnum { CLEAR, KEEP };
+
 class Event {
    public:
-      virtual void fire_event(); 
+      virtual EventEnum fire_event() = 0; 
 };
 
 class Eventdispatcher {
    private:
-
-      class InternalEvent {
-         public:
-            InternalEvent(long when_millis, Event *event);
-            long  when_millis;
-            Event *event;
-      };
-
-
-      InternalEvent **_always_exec;
+      class           InternalEvent;
+      ArraySet       *_always_exec;
       InternalEvent **_event_heap;
 
    public:
@@ -31,6 +26,16 @@ class Eventdispatcher {
       void loop();
 
       ~Eventdispatcher();
+};
+
+class Eventdispatcher::InternalEvent {
+   private:
+      long      _timeout;
+      long      _when;
+
+   public:
+      InternalEvent(long timeout, Event *event);
+      Event    *event;
 };
 
 

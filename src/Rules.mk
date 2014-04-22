@@ -35,9 +35,9 @@ $(TGTS_$(d)): $(TGTS_$(d):%.hex=%.elf)
 	$(OBJCPY)
 
 define test_target
-$(d)/$1: CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d)/wrapper -Ilib/catch -D_TESTING
-$(d)/$1: $(d)/$(1:%.test=%.cpp) $(d)/test_$(1:%.test=%.cpp)
-	$(CXX) -g -O3 -Wall $$(CF_TGT) -o $$@ $$^
+$(d)/$1: CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d)/wrapper -Ilib/catch -Ilib/arrayset -D_TESTING
+$(d)/$1: $(d)/$(1:%.test=%.cpp) $(d)/test_$(1:%.test=%.cpp) lib/arrayset/arrayset.cpp
+	$(CXX) -g -O3 -std=c++11 -Wall $$(CF_TGT) -o $$@ $$^
 	@./$$@
 endef
 

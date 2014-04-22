@@ -20,6 +20,7 @@ class ArraySet {
       void     add(void *elem);
       bool     remove(void *elem);
       void*    find(void *elem);
+      void*    get(int idx);
 
       int   size();
       int   count();
