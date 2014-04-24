@@ -1,5 +1,7 @@
 #include "WrapArduino.h"
 #include "drone.h"
+#include "gyro.h"
+#include "motor.h"
 
 #define MOTOR1_PIN 3
 #define MOTOR2_PIN 5
@@ -27,9 +29,9 @@ void setup() {
 }
 
 void loop() {
-
+	eventdispatcher.loop();
+	drone->update();
 }
-
 
 int main() {
    init();

@@ -1,8 +1,9 @@
 #include "motor.h"
 
 
-Motor::Motor(int pin_number, int idle_speed) {
-   this->_idle_speed    = idle_speed; 
+Motor::Motor(Eventdispatcher *eventdispatcher, int pin_number, int idle_speed) {
+   this->_eventdispatcher = eventdispatcher;
+   this->_idle_speed    = idle_speed;
    this->_pin_number    = pin_number;
    this->_current_speed = 0;
    this->_sync_interval = 50;

@@ -8,6 +8,7 @@
 class Motor {
    private:
       Servo _motor;
+      Eventdispatcher *_eventdispatcher;
       int   _pin_number;
       int   _idle_speed;
       int   _current_speed;

@@ -1,11 +1,12 @@
 #include "WrapArduino.h"
 #include "eventdispatcher.h"
-#include "I2CDev.h"
+#include "I2Cdev.h"
 #include "MPU6050.h"
 #include "Wire.h"
 
 #ifndef __gyro_h
 #define __gyro_h
+
 
 #define X_GYRO_OFFSET 220
 #define Y_GYRO_OFFSET 76
@@ -27,14 +28,26 @@ typedef struct _acceleration {
 
 class Gyro {
    private:
-      orientation_t  _orientation;
-      acceleration_t _acceleration;
+      MPU6050 _mpu;
+      Eventdispatcher *_eventdispatcher;
+      orientation_t   _orientation;
+      acceleration_t  _acceleration;
+
+      uint8_t _fifo_count;
+      uint8_t _fifo_buffer[64];
+      uint8_t _packet_size; 
+      uint8_t _mpu_interrup_status;
+
+      bool _setup();
 
    public:
       Gyro(Eventdispatcher *eventdispatcher);
    
-      orientation_t get_orientaion();
-      acceleration_t get_acceleration();
+      orientation_t* get_orientation();
+      void set_orientation(long w, long x, long y, long z);
+      acceleration_t* get_acceleration();
+
+      void update_data();
 
       ~Gyro();
 };
