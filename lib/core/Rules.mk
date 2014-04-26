@@ -29,17 +29,21 @@ $(d)/%.o:	$(ARDUINO_CORE)/%.c
 $(d)/%.o:	CF_TGT := -I$(ARDUINO_VARIANT) -I$(ARDUINO_CORE)
 $(d)/%.o:	$(ARDUINO_CORE)/%.cpp
 				$(COMP)
-$(d)/%.o:	CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) 
-$(d)/%.o:	CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS))
-$(d)/%.o:	CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(addsuffix /utility, $(ARDUINO_LIBS)))
-$(d)/%.o:	$(ARDUINO_LIB_DIR)/Wire/*/%.c
-				$(COMP)
 
-$(d)/%.o:	CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) 
-$(d)/%.o:	CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS))
-$(d)/%.o:	CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(addsuffix /utility, $(ARDUINO_LIBS)))
-$(d)/%.o:	$(ARDUINO_LIB_DIR)/*/%.cpp
-				$(COMP)
+define build_lib
+$(d)/%.o:	$1/%.cpp
+		$(CC) $$(CF_ALL) -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) $(addprefix -I$(ARDUINO_LIB_DIR)/, $(addsuffix /utility, $(ARDUINO_LIBS))) $(addprefix -I$(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS)) -o $$@ -c $$<
+endef
+
+$(foreach L,$(addprefix $(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS)), $(eval $(call build_lib, $L)))
+
+define lib_utility
+$(d)/%.o:	CF_TGT := -I$(ARDUINO_VARIANT) -I$(ARDUINO_CORE)
+$(d)/%.o:	$1/utility/%.c
+		$(CC) $$(CF_ALL) $$(CF_TGT) -o $$@ -c $$<
+endef
+
+$(foreach L,$(addprefix $(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS)),$(eval $(call lib_utility, $L)))
 
 # Standard things
 
