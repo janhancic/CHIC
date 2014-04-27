@@ -31,8 +31,9 @@ $(d)/%.o:	$(ARDUINO_CORE)/%.cpp
 				$(COMP)
 
 define build_lib
+$(d)/%.o:	CF_TGT = -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT)
 $(d)/%.o:	$1/%.cpp
-		$(CC) $$(CF_ALL) -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) $(addprefix -I$(ARDUINO_LIB_DIR)/, $(addsuffix /utility, $(ARDUINO_LIBS))) $(addprefix -I$(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS)) -o $$@ -c $$<
+		$(CC) $$(CF_ALL) $$(CF_TGT) $(addprefix -I$(ARDUINO_LIB_DIR)/, $(addsuffix /utility, $(ARDUINO_LIBS))) $(addprefix -I$(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS)) -o $$@ -c $$<
 endef
 
 $(foreach L,$(addprefix $(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS)), $(eval $(call build_lib, $L)))
