@@ -3,7 +3,7 @@ MCU			= atmega328p
 CPU_SPEED	= 16000000UL
 
 ### Build flags for all targets 
-CF_ALL		= -g -Os -Wall -mmcu=$(MCU) -DF_CPU=$(CPU_SPEED) -DARDUINO=$(ARDUINO_VERSION)
+CF_ALL		= -g -Os -Wall -mmcu=$(MCU) -DF_CPU=$(CPU_SPEED) -DARDUINO=$(ARDUINO_VERSION) -ffunction-sections -fdata-sections 
 LF_ALL		= -Os -mmcu=$(MCU)
 LL_ALL		=
 AF_ALL		= rcs
@@ -12,7 +12,7 @@ CF_TEST_ALL = -g -O3 -Wall -std=c++11 -D_TESTING
 
 
 ### Build tools
-CC		= $(ARDUINO_BIN_DIR)avr-g++
+CC		= $(ARDUINO_BIN_DIR)avr-gcc
 CXX	= g++
 AR		= $(ARDUINO_BIN_DIR)avr-ar
 OC		= $(ARDUINO_BIN_DIR)avr-objcopy
@@ -43,8 +43,8 @@ endif
 ARDUINO_LIBS 		= Servo Wire
 ARDUINO_VERSION 	= 105
 
-#ARDUINO_PORT	= /dev/tty.usbmodemfa141
-ARDUINO_PORT	= /dev/ttyACM3
+ARDUINO_PORT	= /dev/tty.usbmodemfa141
+#ARDUINO_PORT	= /dev/ttyACM3
 TGT_UP		= src/chic.hex
 
 ### Standard parts

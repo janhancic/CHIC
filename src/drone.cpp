@@ -7,6 +7,12 @@ Drone::Drone(Eventdispatcher *eventdispatcher, Gyro *gyro, Motor *fl, Motor *fr,
    _motor_fr         = fr;
    _motor_bl         = bl;
    _motor_br         = br;
+
+
+   _orientation->w = 0;
+   _orientation->x = 0;
+   _orientation->y = 0;
+   _orientation->z = 0;
 }
 
 void Drone::start() {
@@ -15,17 +21,20 @@ void Drone::start() {
 	// }
 
 	Serial.begin(115200);
-	while (!Serial);
 	Serial.println("ALL SYSTEMS OPERATIONAL! PROCEED WITH TERMINATION!!");
 }
 
 void Drone::update() {
-	this->_orientation = this->_gyro->get_orientation();
+   if( _gyro ) {
+      _orientation = _gyro->get_orientation();
+   }
 
-	Serial.println("--");
+   Serial.print("orientation: x:");
 	Serial.print(this->_orientation->x);
+	Serial.print(" y:");
 	Serial.print(this->_orientation->y);
-	Serial.print(this->_orientation->z);
+	Serial.print(" z:");
+	Serial.println(this->_orientation->z);
 }
 
 

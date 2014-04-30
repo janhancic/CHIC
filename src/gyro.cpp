@@ -12,12 +12,10 @@ class ReadGyroValuesEvent : public Event {
       }
    
       EventEnum fire_event() {
-         // read actual values from gyro
-
-         //this->_gyro->set_orientation(1, 2, 3, 4);
+         this->_gyro->set_orientation(1, 2, 3, 4);
          // set acceleration
          
-         this->_gyro->update_data();
+         //this->_gyro->update_data();
 
          return KEEP;
       }
@@ -59,25 +57,29 @@ Gyro::Gyro(Eventdispatcher *eventdispatcher) {
 
    _setup();
 
-   Event *readValuesEvt = new ReadGyroValuesEvent(this);
-   this->_eventdispatcher->always_exec(readValuesEvt);
+   //Event *readValuesEvt = new ReadGyroValuesEvent(this);
+   //this->_eventdispatcher->always_exec(readValuesEvt);
 }
 
 bool Gyro::_setup() {
    Wire.begin();
    TWBR = 24;
 
-   _mpu.initialize();
-   if( !_mpu.testConnection() ) {
-      return false;
-   }
+   //_mpu.initialize();  //TODO: that stuff is not working ... don't know why
+   //if( !_mpu.testConnection() ) {
+      //Serial.println("returning false no connection...");
+      //return false;
+   //}
 
-   _mpu.setXGyroOffset(X_GYRO_OFFSET);
-   _mpu.setYGyroOffset(Y_GYRO_OFFSET);
-   _mpu.setZGyroOffset(Z_GYRO_OFFSET);
-   _mpu.setZAccelOffset(Z_ACCEL_OFFSET);
+   //_mpu.setXGyroOffset(X_GYRO_OFFSET);
+   //_mpu.setYGyroOffset(Y_GYRO_OFFSET);
+   //_mpu.setZGyroOffset(Z_GYRO_OFFSET);
+   //_mpu.setZAccelOffset(Z_ACCEL_OFFSET);
 
-   _mpu_interrup_status = _mpu.getIntStatus();
+
+   //Serial.println("Getting interrupt status");
+   //_mpu_interrup_status = _mpu.getIntStatus();
+   //Serial.println("Got interrupt status");
    return true;
 }
 

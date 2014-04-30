@@ -5,9 +5,9 @@ dirstack_$(sp)	:= $(d)
 d					:= $(dir)
 
 # Local rules and targets
-CLEAN := $(CLEAN) $(d)/arrayset.test
+CLEAN := $(CLEAN) $(d)/arrayset.test $(d)/arrayset.o
 
-$(d)/arrayset.o: CF_TGT := -std=c++11 -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d) -I$(d)/wrapper 
+$(d)/arrayset.o: CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d) -I$(d)/wrapper 
 $(d)/arrayset.o: %.o : %.cpp
 	$(COMP)
 

@@ -23,6 +23,7 @@ Motor              br   = Motor(&eventdispatcher, MOTOR4_PIN, MOTOR4_IDLE_SPEED)
 
 
 void setup() {
+
    drone = new Drone(&eventdispatcher, &gyro, &fl, &fr, &bl, &br);
 
    drone->start();
@@ -30,6 +31,7 @@ void setup() {
 
 void loop() {
 	eventdispatcher.loop();
+
 	drone->update();
 }
 
