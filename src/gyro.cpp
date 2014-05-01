@@ -1,6 +1,10 @@
+#include "MPU6050_6Axis_MotionApps20.h"
 #include "gyro.h"
 
-bool _mpu_interrupt;
+volatile bool _mpu_interrupt;
+void dmpDataReady() {
+   _mpu_interrupt = true;
+}
 
 class ReadGyroValuesEvent : public Event {
    private:
@@ -33,28 +37,15 @@ void Gyro::update_data() {
       _mpu.getFIFOBytes(_fifo_buffer, _packet_size);
       _fifo_count -= _packet_size;
 
-
-    //  ------ get the values out of the fifo buffer
-    if (_fifo_buffer == 0) return; //<-- means error
-
-    //int16_t qI[4];
-    //qI[0] = ((_fifo_buffer[0] << 8) + _fifo_buffer[1]);
-    //qI[1] = ((_fifo_buffer[4] << 8) + _fifo_buffer[5]);
-    //qI[2] = ((_fifo_buffer[8] << 8) + _fifo_buffer[9]);
-    //qI[3] = ((_fifo_buffer[12] << 8) + _fifo_buffer[13]);
-    //Serial.println(qI[0]);
-    //Serial.println(qI[1]);
-    //Serial.println(qI[2]);
-    //Serial.println(qI[2]);
-
-    //_orientation.w = (float)qI[0] / 16384.0f;
-    //_orientation.x = (float)qI[1] / 16384.0f;
-    //_orientation.y = (float)qI[2] / 16384.0f;
-    //_orientation.z = (float)qI[3] / 16384.0f;
-
-    Serial.println("--");
+      int16_t qI[4];
+      uint8_t status = _mpu.dmpGetQuaternion(qI, _fifo_buffer);
+      if (status == 0) {
+         _orientation.w = (float)qI[0] / 16384.0f;
+         _orientation.x = (float)qI[1] / 16384.0f;
+         _orientation.y = (float)qI[2] / 16384.0f;
+         _orientation.z = (float)qI[3] / 16384.0f;
+      }
    }
-
 }
 
 Gyro::Gyro(Eventdispatcher *eventdispatcher) {
@@ -76,6 +67,8 @@ Gyro::Gyro(Eventdispatcher *eventdispatcher) {
 }
 
 bool Gyro::setup() {
+   uint8_t dev_status;
+
    Wire.begin();
    TWBR = 24;
    
@@ -85,15 +78,24 @@ bool Gyro::setup() {
       return false;
    }
 
+   dev_status = _mpu.dmpInitialize();
+
    _mpu.setXGyroOffset(X_GYRO_OFFSET);
    _mpu.setYGyroOffset(Y_GYRO_OFFSET);
    _mpu.setZGyroOffset(Z_GYRO_OFFSET);
    _mpu.setZAccelOffset(Z_ACCEL_OFFSET);
 
+   if( dev_status == 0 ) {
+      _mpu.setDMPEnabled(true);
+      attachInterrupt(0, dmpDataReady, RISING);
+      _mpu_interrupt_status = _mpu.getIntStatus();
+      _packet_size = _mpu.dmpGetFIFOPacketSize();
 
-   Serial.println("Getting interrupt status");
-   _mpu_interrupt_status = _mpu.getIntStatus();
-   Serial.println("Got interrupt status");
+      Serial.println("Gyro set up");
+   } else {
+      Serial.println("Problem setting up dmp and stuff");
+      return false;
+   }
    return true;
 }
 

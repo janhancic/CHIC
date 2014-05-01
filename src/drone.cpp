@@ -12,10 +12,6 @@ Drone::Drone(Eventdispatcher *eventdispatcher, Gyro *gyro, Motor *fl, Motor *fr,
 }
 
 void Drone::start() {
-	// if (all_motors_armed() == false) {
-	// } else {
-	// }
-
 	Serial.begin(115200);
 	Serial.println("ALL SYSTEMS OPERATIONAL! PROCEED WITH TERMINATION!!");
 
@@ -26,12 +22,14 @@ void Drone::start() {
 
 void Drone::update() {
 
-   //Serial.print("orientation: x:");
-   //Serial.print(this->_orientation->x);
-   //Serial.print(" y:");
-   //Serial.print(this->_orientation->y);
-   //Serial.print(" z:");
-   //Serial.println(this->_orientation->z);
+   Serial.print("orientation: w:");
+   Serial.print(this->_orientation->w);
+   Serial.print(" x:");
+   Serial.print(this->_orientation->x);
+   Serial.print(" y:");
+   Serial.print(this->_orientation->y);
+   Serial.print(" z:");
+   Serial.println(this->_orientation->z);
 }
 
 
