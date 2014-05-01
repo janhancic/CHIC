@@ -3,7 +3,10 @@
 
 volatile bool _mpu_interrupt;
 void dmpDataReady() {
-   _mpu_interrupt = true;
+   //NOTE: works as long as we only have one gyro
+   //NOTE: gets called from arduino as an interrupt when pin goes high
+   //TODO: make it add an event to the dispatcher 
+   _mpu_interrupt = true; 
 }
 
 class ReadGyroValuesEvent : public Event {
