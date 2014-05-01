@@ -12,31 +12,47 @@ class ReadGyroValuesEvent : public Event {
       }
    
       EventEnum fire_event() {
-         this->_gyro->set_orientation(1, 2, 3, 4);
-         // set acceleration
-         
-         //this->_gyro->update_data();
-
+         this->_gyro->update_data();
          return KEEP;
       }
 };
 
 void Gyro::update_data() {
-   if ( !_mpu_interrupt && _fifo_count < _packet_size ) {
-      return;
-   }
+   while ( !_mpu_interrupt && _fifo_count < _packet_size );
 
    _mpu_interrupt = false;
-   _mpu_interrup_status = _mpu.getIntStatus();
+   _mpu_interrupt_status = _mpu.getIntStatus();
    _fifo_count = _mpu.getFIFOCount();
 
-   if( (_mpu_interrup_status & 0x10) || _fifo_count == 1024) {
+   if( (_mpu_interrupt_status & 0x10) || _fifo_count == 1024) {
       _mpu.resetFIFO();    //should never happen, unless our code is too inefficient
-   } else if( _mpu_interrup_status & 0x02 ) {
+      Serial.println("FIFO overflow");
+   } else if( _mpu_interrupt_status & 0x02 ) {
       while( _fifo_count < _packet_size ) _fifo_count = _mpu.getFIFOCount();
 
       _mpu.getFIFOBytes(_fifo_buffer, _packet_size);
       _fifo_count -= _packet_size;
+
+
+    //  ------ get the values out of the fifo buffer
+    if (_fifo_buffer == 0) return; //<-- means error
+
+    //int16_t qI[4];
+    //qI[0] = ((_fifo_buffer[0] << 8) + _fifo_buffer[1]);
+    //qI[1] = ((_fifo_buffer[4] << 8) + _fifo_buffer[5]);
+    //qI[2] = ((_fifo_buffer[8] << 8) + _fifo_buffer[9]);
+    //qI[3] = ((_fifo_buffer[12] << 8) + _fifo_buffer[13]);
+    //Serial.println(qI[0]);
+    //Serial.println(qI[1]);
+    //Serial.println(qI[2]);
+    //Serial.println(qI[2]);
+
+    //_orientation.w = (float)qI[0] / 16384.0f;
+    //_orientation.x = (float)qI[1] / 16384.0f;
+    //_orientation.y = (float)qI[2] / 16384.0f;
+    //_orientation.z = (float)qI[3] / 16384.0f;
+
+    Serial.println("--");
    }
 
 }
@@ -55,31 +71,29 @@ Gyro::Gyro(Eventdispatcher *eventdispatcher) {
 
    _mpu_interrupt = false;
 
-   _setup();
-
-   //Event *readValuesEvt = new ReadGyroValuesEvent(this);
-   //this->_eventdispatcher->always_exec(readValuesEvt);
+   Event *readValuesEvt = new ReadGyroValuesEvent(this);
+   this->_eventdispatcher->always_exec(readValuesEvt);
 }
 
-bool Gyro::_setup() {
+bool Gyro::setup() {
    Wire.begin();
    TWBR = 24;
+   
+   _mpu.initialize();  //TODO: that stuff is not working ... don't know why
+   if( !_mpu.testConnection() ) {
+      Serial.println("returning false no connection...");
+      return false;
+   }
 
-   //_mpu.initialize();  //TODO: that stuff is not working ... don't know why
-   //if( !_mpu.testConnection() ) {
-      //Serial.println("returning false no connection...");
-      //return false;
-   //}
-
-   //_mpu.setXGyroOffset(X_GYRO_OFFSET);
-   //_mpu.setYGyroOffset(Y_GYRO_OFFSET);
-   //_mpu.setZGyroOffset(Z_GYRO_OFFSET);
-   //_mpu.setZAccelOffset(Z_ACCEL_OFFSET);
+   _mpu.setXGyroOffset(X_GYRO_OFFSET);
+   _mpu.setYGyroOffset(Y_GYRO_OFFSET);
+   _mpu.setZGyroOffset(Z_GYRO_OFFSET);
+   _mpu.setZAccelOffset(Z_ACCEL_OFFSET);
 
 
-   //Serial.println("Getting interrupt status");
-   //_mpu_interrup_status = _mpu.getIntStatus();
-   //Serial.println("Got interrupt status");
+   Serial.println("Getting interrupt status");
+   _mpu_interrupt_status = _mpu.getIntStatus();
+   Serial.println("Got interrupt status");
    return true;
 }
 
@@ -102,11 +116,6 @@ acceleration_t* Gyro::get_acceleration() {
 Gyro::~Gyro() {
    
 }
-
-//Gyro::Gyro() {
-   //_mpu_interrupt =  false; 
-   //_dmp_ready =      false;
-//}
 
 //bool Gyro::_setup() {
    //bool dev_status;
@@ -133,7 +142,7 @@ Gyro::~Gyro() {
 
    //_mpu.setDMPEnabled(true);
    //attachInterrupt(0, dmpDataReady, RISING);
-   //_mpu_interrup_status = _mpu.getIntStatus();
+   //_mpu_interrupt_status = _mpu.getIntStatus();
 
    //_dmp_ready = true;
    //_packet_size = mpu.dmpGetFIFOPacketSize();
