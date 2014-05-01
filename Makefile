@@ -3,7 +3,7 @@ MCU			= atmega328p
 CPU_SPEED	= 16000000UL
 
 ### Build flags for all targets 
-CF_ALL		= -g -Os -Wall -mmcu=$(MCU) -DF_CPU=$(CPU_SPEED) -DARDUINO=$(ARDUINO_VERSION) -ffunction-sections -fdata-sections 
+CF_ALL		= -std=c++11 -g -Os -Wall -mmcu=$(MCU) -DF_CPU=$(CPU_SPEED) -DARDUINO=$(ARDUINO_VERSION) -ffunction-sections -fdata-sections 
 LF_ALL		= -Os -mmcu=$(MCU)
 LL_ALL		=
 AF_ALL		= rcs

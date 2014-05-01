@@ -1,6 +1,5 @@
 #include "motor.h"
 
-
 Motor::Motor(Eventdispatcher *eventdispatcher, int pin_number, int idle_speed) {
    this->_eventdispatcher = eventdispatcher;
    this->_idle_speed    = idle_speed;

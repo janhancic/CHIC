@@ -8,7 +8,7 @@ d					:= $(dir)
 CLEAN := $(CLEAN) $(d)/arrayset.test $(d)/arrayset.o
 
 $(d)/arrayset.o: CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d) -I$(d)/wrapper 
-$(d)/arrayset.o: %.o : %.cpp
+$(d)/arrayset.o: %.o : %.cpp %.test
 	$(COMP)
 
 $(d)/arrayset.test: CF_TGT := -Ilib/catch

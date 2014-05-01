@@ -15,8 +15,6 @@ class Motor {
       long  _sync_interval;
       long  _sleep_millis;
       long  _sync_last_time;
-      bool  _armed;
-      bool  _arming;
       bool  _on;
       bool  _started;
 
