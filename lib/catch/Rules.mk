@@ -13,9 +13,10 @@ CLEAN			:= $(CLEAN) $(TGTS_$(d))
 # Local rules
 
 
+
 # Standard things
 
 -include	$(DEPS_$(d))
 
 d			:= $(dirstack_$(sp))
-sp			:= $(basename $(sp))
+sp			:= $(basename $(sp)):

@@ -6,6 +6,9 @@ d					:= $(dir)
 
 # Subdirectories, in random order
 
+dir 			:= $(d)/gmock
+include 		$(dir)/Rules.mk
+
 dir			:= $(d)/core
 include		$(dir)/Rules.mk
 
@@ -17,6 +20,9 @@ include		$(dir)/Rules.mk
 
 dir 			:= $(d)/arrayset
 include		$(dir)/Rules.mk
+
+dir 			:= $(d)/catch
+include 		$(dir)/Rules.mk
 
 # Standard things
 
