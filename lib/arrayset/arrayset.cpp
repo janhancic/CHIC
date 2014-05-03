@@ -38,6 +38,13 @@ bool ArraySet::remove(void *elem) {
    return true;
 }
 
+bool ArraySet::remove(int index) {
+   if ( index < 0 ) return false;
+
+   _arr[index] = _arr[--_num_elements];
+   return true;
+}
+
 int ArraySet::size() {
    return _size;
 }

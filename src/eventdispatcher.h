@@ -15,27 +15,31 @@ class Eventdispatcher {
    private:
       class           InternalEvent;
       ArraySet       *_always_exec;
-      InternalEvent **_event_heap;
+      ArraySet       *_event_set;
 
    public:
       Eventdispatcher();
 
-      void set_timeout(long timeout, Event *event);
+      void schedule(long timeout, Event *event);
       void always_exec(Event *event);
-      void clear_timeout(Event *event);
       void loop();
 
       ~Eventdispatcher();
 };
 
-class Eventdispatcher::InternalEvent {
+class Eventdispatcher::InternalEvent : public Event {
    private:
       long      _timeout;
       long      _when;
+      Event    *_event;
 
    public:
       InternalEvent(long timeout, Event *event);
-      Event    *event;
+      Event*      get_event();
+      bool        is_due();
+      EventEnum   fire_event();
+
+      ~InternalEvent();
 };
 
 

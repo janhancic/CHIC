@@ -19,6 +19,7 @@ class ArraySet {
 
       void     add(void *elem);
       bool     remove(void *elem);
+      bool     remove(int index);
       void*    find(void *elem);
       void*    get(int idx);
 
