@@ -19,4 +19,4 @@ CLEAN			:= $(CLEAN) $(TGTS_$(d))
 -include	$(DEPS_$(d))
 
 d			:= $(dirstack_$(sp))
-sp			:= $(basename $(sp)):
+sp			:= $(basename $(sp))
