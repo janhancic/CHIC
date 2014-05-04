@@ -1,10 +1,12 @@
-#define CATCH_CONFIG_MAIN  
+#define CATCH_CONFIG_RUNNER
 #include "gmock/gmock.h"
+#include "gtest/gtest.h"
 #undef FAIL
 #undef SUCCEED
 #include "catch.hpp"
 //#include "gyro.cpp"
 
+using testing::InitGoogleMock;
 
 class Test {
    public:
@@ -37,12 +39,23 @@ void digitalWrite(int pin, int high) {
 }
 
 TEST_CASE( "", "[basic?]" ) {
-   ::testing::GTEST_FLAG(throw_on_failure) = true;
-   ::testing::InitGoogleMock((int)0,(char**)NULL); 
 
    MockMPU mpu;
-   
-   EXPECT_CALL(mpu, method(initialize))
-    .Times(1)
+
+   EXPECT_CALL(mpu, initialize()).Times(1);
+    //.Times(1)
+   mpu.initialize();
 }
 
+int main( int argc, char* argv[] )
+{
+  // global setup...
+   ::testing::GTEST_FLAG(throw_on_failure) = true;
+   ::testing::InitGoogleMock(&argc, argv); 
+
+  int result = Catch::Session().run( argc, argv );
+
+  // global clean-up...
+
+  return result;
+}
