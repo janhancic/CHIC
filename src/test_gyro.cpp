@@ -4,23 +4,15 @@
 #undef FAIL
 #undef SUCCEED
 #include "catch.hpp"
-//#include "gyro.cpp"
+#include "gyro.cpp"
 
 using testing::InitGoogleMock;
 
-class Test {
-   public:
-      void initialize() {
-         printf("not mocked initialize\n");
-      }
+void attachInterrupt(uint8_t interruptNum, void (*userFunc)(void), int mode) {
+   PRINT("attaching interrupt"); 
+}
 
-      bool testConnection() {
-         printf("non-mocked testConnection\n");
-         return true;
-      }
-};
-
-class MockMPU: public Test {
+class MockMPU {
  public:
   MOCK_METHOD0(initialize, void());
   MOCK_METHOD0(testConnection, bool());
@@ -43,7 +35,6 @@ TEST_CASE( "", "[basic?]" ) {
    MockMPU mpu;
 
    EXPECT_CALL(mpu, initialize()).Times(1);
-    //.Times(1)
    mpu.initialize();
 }
 

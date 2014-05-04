@@ -1,7 +1,8 @@
 #include "WrapArduino.h"
-#include "eventdispatcher.h"
-#include "MPU6050.h"
 #include "WrapWire.h"
+#include "I2CDev.h"
+#include "MPU6050_6Axis_MotionApps20.h"
+#include "eventdispatcher.h"
 
 #ifndef __gyro_h
 #define __gyro_h
@@ -27,7 +28,7 @@ typedef struct _acceleration {
 
 class Gyro {
    private:
-      MPU6050          _mpu;
+      MPU6050         *_mpu;
       Eventdispatcher *_eventdispatcher;
       orientation_t    _orientation;
       acceleration_t   _acceleration;
@@ -39,7 +40,8 @@ class Gyro {
 
 
    public:
-      Gyro(Eventdispatcher *eventdispatcher);
+      Gyro(Eventdispatcher *eventdispatcher) : Gyro(eventdispatcher, new MPU6050()) {}
+      Gyro(Eventdispatcher *eventdispatcher, MPU6050 *mpu);
    
       orientation_t* get_orientation();
       bool setup();
