@@ -1,6 +1,8 @@
-#include "MPU6050_6Axis_MotionApps20.h"
+#ifndef _TESTING
+   #include "MPU6050_6Axis_MotionApps20.h"
+#endif
 #include "gyro.h"
-
+/*
 volatile bool _mpu_interrupt;
 void dmpDataReady() {
    //NOTE: works as long as we only have one gyro
@@ -162,4 +164,4 @@ Gyro::~Gyro() {
 //}
 
 //Gyro::~Gyro() {
-//}
+//} */

@@ -33,6 +33,10 @@ THE SOFTWARE.
 #ifndef _MPU6050_6AXIS_MOTIONAPPS20_H_
 #define _MPU6050_6AXIS_MOTIONAPPS20_H_
 
+#ifdef _TESTING
+   #include <stdint.h>
+#endif
+
 #include "I2Cdev.h"
 #include "helper_3dmath.h"
 

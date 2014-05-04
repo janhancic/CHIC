@@ -17,6 +17,8 @@ TGT_BIN		:= $(TGT_BIN) $(TGTS_$(d))
 TESTS			:= $(TESTS) $(patsubst %, $(d)/%,$(TESTS_$(d)))
 CLEAN			:= $(CLEAN) $(TGTS_$(d)) $(TGTS_$(d):%.hex=%.elf) $(OBJS_$(d)) $(patsubst %, $(d)/%,$(TESTS_$(d)))
 
+GMOCK_INCLUES := -Ilib/gmock/gmock/include -Ilib/gmock/gmock/gtest/include -Ilib/gmock/gmock/gtest/include/gtest/internal
+
 $(OBJS_$(d)): CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d) -I$(d)/wrapper -Ilib/i2cdev -Ilib/gyro -Ilib/arrayset
 $(OBJS_$(d)): CF_TGT += $(addprefix -I$(ARDUINO_LIB_DIR)/, $(ARDUINO_LIBS))
 $(OBJS_$(d)): %.o : %.cpp
@@ -35,8 +37,8 @@ $(TGTS_$(d)): $(TGTS_$(d):%.hex=%.elf)
 	$(OBJCPY)
 
 define test_target
-$(d)/$1: CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d)/wrapper -Ilib/catch -Ilib/arrayset -D_TESTING
-$(d)/$1: $(d)/$(1:%.test=%.cpp) $(d)/test_$(1:%.test=%.cpp) lib/arrayset/arrayset.cpp
+$(d)/$1: CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d)/wrapper -Ilib/catch -Ilib/arrayset $(GMOCK_INCLUES) -Ilib/gyro -Ilib/i2cdev -D_TESTING
+$(d)/$1: $(d)/test_$(1:%.test=%.cpp) $(d)/$(1:%.test=%.cpp) lib/arrayset/arrayset.cpp
 	$(CXX) -g -O3 -std=c++11 -Wall $$(CF_TGT) -o $$@ $$^
 	@./$$@
 endef

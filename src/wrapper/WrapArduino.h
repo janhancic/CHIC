@@ -4,6 +4,7 @@
 #ifndef _TESTING 
 #include "Arduino.h"
 #else
+#include <stdint.h>
 
 #define OUTPUT -10
 #define HIGH 1
@@ -12,6 +13,7 @@
 void delay(int time);
 long millis();
 void digitalWrite(int, int);
+double sqrt(double); 
 
 #endif
 #endif /* __WRAP_ARDUINO_H__ */
