@@ -15,7 +15,7 @@ TESTS_$(d)	:= $(patsubst $(d)/test_%.cpp,%.test,$(TESTSRC_$(d)))
 
 TGT_BIN		:= $(TGT_BIN) $(TGTS_$(d))
 TESTS			:= $(TESTS) $(patsubst %, $(d)/%,$(TESTS_$(d)))
-CLEAN			:= $(CLEAN) $(TGTS_$(d)) $(TGTS_$(d):%.hex=%.elf) $(OBJS_$(d)) $(patsubst %, $(d)/%,$(TESTS_$(d)))
+CLEAN			:= $(CLEAN) $(TGTS_$(d)) $(TGTS_$(d):%.hex=%.elf) $(OBJS_$(d)) $(patsubst %, $(d)/%,$(TESTS_$(d))) $(d)/*.dSYM
 
 GMOCK_INCLUES := -Ilib/gmock/gmock/include -Ilib/gmock/gmock/gtest/include -Ilib/gmock/gmock/gtest/include/gtest/internal
 

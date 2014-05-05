@@ -16,9 +16,18 @@
 
 #ifdef _TESTING
    #define PRINT(format, ...) \
-      fprintf(stderr, format, ##__VA_ARGS__);
+      printf(format, ##__VA_ARGS__);
+   #define PRINTLN(format, ...) \
+      printf(format, ##__VA_ARGS__); \
+      printf("\n");
 #else
    #define PRINT(format, ...) \
+      do { \
+         char buf[256]; \
+         snprintf(buf, 256, format, ##__VA_ARGS__); \
+         Serial.print(buf); \
+      } while(0);
+   #define PRINTLN(format, ...) \
       do { \
          char buf[256]; \
          snprintf(buf, 256, format, ##__VA_ARGS__); \

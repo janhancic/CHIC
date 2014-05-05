@@ -1,7 +1,4 @@
-#ifdef _TESTING
-   int TWBR = -1;
-   #define __arm__
-#endif
+#include "MPU6050_6Axis_MotionApps20.h"
 #include "gyro.h"
 
 #define _DEBUG
@@ -39,7 +36,7 @@ void Gyro::update_data() {
 
    if( (_mpu_interrupt_status & 0x10) || _fifo_count == 1024) {
       _mpu->resetFIFO();    //should never happen, unless our code is too inefficient
-      PRINT("FIFO overflow");
+      Serial.println("FIFO overflow");
    } else if( _mpu_interrupt_status & 0x02 ) {
       while( _fifo_count < _packet_size ) _fifo_count = _mpu->getFIFOCount();
 
@@ -84,7 +81,7 @@ bool Gyro::setup() {
    
    _mpu->initialize();  //TODO: that stuff is not working ... don't know why
    if( !_mpu->testConnection() ) {
-      PRINT("returning false no connection...");
+      Serial.println("returning false no connection...");
       return false;
    }
 
@@ -101,9 +98,9 @@ bool Gyro::setup() {
       _mpu_interrupt_status = _mpu->getIntStatus();
       _packet_size = _mpu->dmpGetFIFOPacketSize();
 
-      PRINT("Gyro set up");
+      Serial.println("Gyro set up");
    } else {
-      PRINT("Problem setting up dmp and stuff");
+      Serial.println("Problem setting up dmp and stuff");
       return false;
    }
    return true;

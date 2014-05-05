@@ -6,9 +6,9 @@ d						:= $(dir)
 
 # Local variables
 
-TGTS_$(d)	:= $(d)/gmock_main.a $(d)/gmock.a $(d)/*.o
+TGTS_$(d)	:= $(d)/gmock_main.a $(d)/gmock.a 
 TGT_LIB		:= $(TGT_LIB) $(TGTS_$(d))
-CLEAN			:= $(CLEAN) $(TGTS_$(d))
+CLEAN			:= $(CLEAN) $(TGTS_$(d)) $(d)/*.o
 
 GTEST_DIR 	:= $(d)/gmock/gtest
 GMOCK_DIR 	:= $(d)/gmock

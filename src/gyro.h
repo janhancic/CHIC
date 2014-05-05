@@ -1,7 +1,7 @@
 #include "WrapArduino.h"
 #include "WrapWire.h"
 #include "I2CDev.h"
-#include "MPU6050_6Axis_MotionApps20.h"
+#include "MPU6050.h"
 #include "eventdispatcher.h"
 
 #ifndef __gyro_h
