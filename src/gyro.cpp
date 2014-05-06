@@ -12,6 +12,10 @@ void dmpDataReady() {
    _mpu_interrupt = true; 
 }
 
+void registerInterrupt(Gyro *gyro, int interrupt, int mode) {
+
+}
+
 class ReadGyroValuesEvent : public Event {
    private:
       Gyro *_gyro;

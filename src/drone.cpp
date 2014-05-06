@@ -18,9 +18,19 @@ void Drone::start() {
    if( _gyro->setup() ) {
       _orientation = _gyro->get_orientation();
    }
+
+   _motor_fl->start();
+   _motor_fr->start();
+   _motor_bl->start();
+   _motor_br->start();
 }
 
 void Drone::update() {
+
+   if (!_motor_fl->is_started()) {
+      Serial.print( "motors still arming" );
+      return;
+   }
 
    Serial.print("orientation: w:");
    Serial.print(this->_orientation->w);

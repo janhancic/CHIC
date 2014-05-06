@@ -1,6 +1,6 @@
 #include "WrapArduino.h"
 #include "WrapWire.h"
-#include "I2CDev.h"
+#include "I2Cdev.h"
 #include "MPU6050.h"
 #include "eventdispatcher.h"
 
@@ -52,5 +52,7 @@ class Gyro {
 
       ~Gyro();
 };
+
+void registerInterrupt(int pin, Gyro *gyro, int type);
 
 #endif

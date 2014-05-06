@@ -1,12 +1,32 @@
 #include "motor.h"
 
+class ArmMotorsEvent : public Event {
+   private:
+      Motor             *_motor;
+      Eventdispatcher   *_eventdispatcher;
+
+   public:
+      ArmMotorsEvent(Eventdispatcher *eventdispatcher, Motor *motor) {
+         this->_motor = motor;
+         this->_eventdispatcher = eventdispatcher;
+      }
+   
+      EventEnum fire_event() {
+         if( _eventdispatcher == NULL ) {
+            return _motor->do_start() ? CLEAR : KEEP;
+         }
+
+         // wait period has passed, now we start telling the motor to increase the speed
+         _eventdispatcher->schedule(50, new ArmMotorsEvent(NULL, _motor));
+         return CLEAR;
+      }
+};
+
 Motor::Motor(Eventdispatcher *eventdispatcher, int pin_number, int idle_speed) {
    this->_eventdispatcher = eventdispatcher;
    this->_idle_speed    = idle_speed;
    this->_pin_number    = pin_number;
    this->_current_speed = 0;
-   this->_sync_interval = 50;
-   this->_sleep_millis  = 2000;
    this->_on      = false;
    this->_started = false;
 
@@ -16,31 +36,25 @@ Motor::Motor(Eventdispatcher *eventdispatcher, int pin_number, int idle_speed) {
 
    _motor.attach(_pin_number);
    _motor.write(_current_speed);
-
-   this->_sync_last_time = millis();
 }
 
 void Motor::start() {
-   long current_time = millis();
-   long time_diff = current_time - _sync_last_time;
+   _eventdispatcher->schedule( 2000, new ArmMotorsEvent(_eventdispatcher, this) );
+};
 
-   if ( _started ) return;
+bool Motor::do_start() {
+   if ( _started ) return true;
 
-   if( ( _sleep_millis < 0 && time_diff >= _sync_interval ) || ( _sleep_millis >= 0 && time_diff >= _sleep_millis ) ) {
-      _sleep_millis = -1;
+   _current_speed += ARMING_SPEED_INC_INTERVAL;
 
-      if( _current_speed >= _idle_speed ) {
-         _current_speed = _idle_speed;
-         //TODO: point to other synchronise now
-         _started = true;
-      }
-
-      _motor.write(++_current_speed);
-      _sync_last_time = current_time;
-
-      _on = !_on;
-      digitalWrite(13, _on ? HIGH : LOW);
+   if( _current_speed >= _idle_speed ) {
+      _current_speed = _idle_speed;
+      _started = true;
    }
+
+   _motor.write(++_current_speed);
+
+   return _started;
 }
 
 void Motor::stop() {
@@ -63,6 +77,10 @@ void Motor::set_speed(int speed) {
 int Motor::get_speed() {
    return _current_speed; 
 }
+
+bool Motor::is_started() {
+   return _started;
+};
 
 Motor::~Motor() {
    stop();

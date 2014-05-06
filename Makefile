@@ -43,8 +43,8 @@ endif
 ARDUINO_LIBS 		= Servo Wire
 ARDUINO_VERSION 	= 105
 
-ARDUINO_PORT	= /dev/tty.usbmodemfa141
-#ARDUINO_PORT	= /dev/ttyACM3
+#ARDUINO_PORT	= /dev/tty.usbmodemfa141
+ARDUINO_PORT	= /dev/ttyACM4
 TGT_UP		= src/chic.hex
 
 ### Standard parts
