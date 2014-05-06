@@ -18,6 +18,7 @@ bool Eventdispatcher::InternalEvent::is_due() {
 }
 
 EventEnum Eventdispatcher::InternalEvent::fire_event() {
+   _when = millis() + _timeout;
    return _event->fire_event();
 }
 

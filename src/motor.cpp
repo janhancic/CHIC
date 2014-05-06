@@ -7,12 +7,15 @@ class ArmMotorsEvent : public Event {
 
    public:
       ArmMotorsEvent(Eventdispatcher *eventdispatcher, Motor *motor) {
-         this->_motor = motor;
-         this->_eventdispatcher = eventdispatcher;
+         _motor = motor;
+         _eventdispatcher = eventdispatcher;
       }
    
       EventEnum fire_event() {
          if( _eventdispatcher == NULL ) {
+            Serial.print(millis());
+            Serial.print("  --> ");
+            Serial.println(_motor->get_speed());
             return _motor->do_start() ? CLEAR : KEEP;
          }
 
@@ -34,11 +37,12 @@ Motor::Motor(Eventdispatcher *eventdispatcher, int pin_number, int idle_speed) {
       //TODO: handle error
    }
 
-   _motor.attach(_pin_number);
-   _motor.write(_current_speed);
 }
 
 void Motor::start() {
+   _motor.attach(_pin_number);
+   _motor.write(_current_speed);
+
    _eventdispatcher->schedule( 2000, new ArmMotorsEvent(_eventdispatcher, this) );
 };
 
@@ -50,10 +54,12 @@ bool Motor::do_start() {
    if( _current_speed >= _idle_speed ) {
       _current_speed = _idle_speed;
       _started = true;
+      Serial.print("Motor on pin ");
+      Serial.print(_pin_number);
+      Serial.println(" started");
    }
 
-   _motor.write(++_current_speed);
-
+   _motor.write(_current_speed);
    return _started;
 }
 

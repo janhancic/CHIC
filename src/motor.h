@@ -1,6 +1,7 @@
 #include "WrapArduino.h"
 #include "eventdispatcher.h"
 #include "WrapServo.h"
+#include "HardwareSerial.h"
 
 #ifndef __motor_h
 #define __motor_h

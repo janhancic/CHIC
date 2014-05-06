@@ -12,8 +12,6 @@ Drone::Drone(Eventdispatcher *eventdispatcher, Gyro *gyro, Motor *fl, Motor *fr,
 }
 
 void Drone::start() {
-	Serial.begin(115200);
-	Serial.println("ALL SYSTEMS OPERATIONAL! PROCEED WITH TERMINATION!!");
 
    if( _gyro->setup() ) {
       _orientation = _gyro->get_orientation();
@@ -28,7 +26,6 @@ void Drone::start() {
 void Drone::update() {
 
    if (!_motor_fl->is_started()) {
-      Serial.print( "motors still arming" );
       return;
    }
 
