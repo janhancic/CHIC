@@ -35,9 +35,19 @@ TEST_CASE( "Motor constructor sets required fields", "[initialization]" ) {
    REQUIRE( motor->get_speed() == 0 );
 }
 
-TEST_CASE( "motor set_speed sets speed", "[set_speed]" ) {
-   motor->set_speed(100);
-   REQUIRE( motor->get_speed() == 100 );
+TEST_CASE( "motor set_speed ", "[set_speed]" ) {
+
+   SECTION( "set valid speeds" ) {
+      motor->set_speed(100);
+      REQUIRE( motor->get_speed() == 100 );
+   }
+   SECTION( "set invalid speeds" ) {
+      motor->set_speed( -10 );
+      REQUIRE( motor->get_speed() == 100 );
+
+      motor->set_speed( 200 );
+      REQUIRE( motor->get_speed() == 100 );
+   }
 }
 
 TEST_CASE( "start arms the motor", "[arming routine]") {
