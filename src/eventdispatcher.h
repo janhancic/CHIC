@@ -20,9 +20,9 @@ class Eventdispatcher {
    public:
       Eventdispatcher();
 
-      void schedule(long timeout, Event *event);
-      void always_exec(Event *event);
-      void loop();
+      virtual void schedule(long timeout, Event *event);
+      virtual void always_exec(Event *event);
+      virtual void loop();
 
       ~Eventdispatcher();
 };

@@ -1,8 +1,8 @@
 #include "WrapArduino.h"
+#include "WrapSerial.h"
 #include "WrapWire.h"
-#include "I2Cdev.h"
-#include "MPU6050.h"
 #include "eventdispatcher.h"
+#include "MPU6050.h"
 
 #ifndef __gyro_h
 #define __gyro_h

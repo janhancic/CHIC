@@ -15,9 +15,6 @@ class Motor {
       int   _pin_number;
       int   _idle_speed;
       int   _current_speed;
-      long  _sync_interval;
-      long  _sleep_millis;
-      long  _sync_last_time;
       bool  _on;
       bool  _started;
 

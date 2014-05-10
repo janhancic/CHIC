@@ -21,6 +21,7 @@ void delay(int time);
 long millis();
 void digitalWrite(int, int);
 void attachInterrupt(uint8_t, void (*)(void), int mode);
+long sqrt(long);
 
 #endif
 #endif /* __WRAP_ARDUINO_H__ */
