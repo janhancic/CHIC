@@ -30,4 +30,14 @@ class Motor {
       ~Motor();
 };
 
+class ArmMotorsEvent : public Event {
+   private:
+      Motor             *_motor;
+      Eventdispatcher   *_eventdispatcher;
+
+   public:
+      ArmMotorsEvent(Eventdispatcher *eventdispatcher, Motor *motor);
+      EventEnum fire_event();
+};
+
 #endif

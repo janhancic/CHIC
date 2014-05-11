@@ -56,7 +56,26 @@ TEST_CASE( "start arms the motor", "[arming routine]") {
 
    EXPECT_CALL(mockEventdispatcher, schedule(2000, _)).Times(1);
    motor->start();
+
+   SECTION( "arming event given an eventdispatcher schedules speedup event" ) {
+      ArmMotorsEvent *armEvent = new ArmMotorsEvent(&mockEventdispatcher, motor);
+
+      EXPECT_CALL(mockEventdispatcher, schedule(50, _));
+      REQUIRE( armEvent->fire_event() == CLEAR );
+   }
+
+   SECTION (" arming event without eventdispatcher remains scheduled until idle speed is reached" ) {
+      ArmMotorsEvent *armEvent = new ArmMotorsEvent(NULL, motor);
+
+      REQUIRE( armEvent->fire_event() == KEEP );
+      REQUIRE( motor->is_started() == false );
+
+      motor->set_speed(_IDLE_SPEED);
+      REQUIRE( armEvent->fire_event() == CLEAR );
+      REQUIRE( motor->is_started() == true );
+   }
 }
+
 
 int main( int argc, char* argv[] )
 {

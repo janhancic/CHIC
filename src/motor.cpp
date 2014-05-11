@@ -1,29 +1,22 @@
 #include "motor.h"
 
-class ArmMotorsEvent : public Event {
-   private:
-      Motor             *_motor;
-      Eventdispatcher   *_eventdispatcher;
-
-   public:
-      ArmMotorsEvent(Eventdispatcher *eventdispatcher, Motor *motor) {
-         _motor = motor;
-         _eventdispatcher = eventdispatcher;
-      }
+ArmMotorsEvent::ArmMotorsEvent(Eventdispatcher *eventdispatcher, Motor *motor) {
+   _motor = motor;
+   _eventdispatcher = eventdispatcher;
+}
    
-      EventEnum fire_event() {
-         if( _eventdispatcher == NULL ) {
-            Serial.print(millis());
-            Serial.print("  --> ");
-            Serial.println(_motor->get_speed());
-            return _motor->do_start() ? CLEAR : KEEP;
-         }
+EventEnum ArmMotorsEvent::fire_event() {
+   if( _eventdispatcher == NULL ) {
+      Serial.print(millis());
+      Serial.print("  --> ");
+      Serial.println(_motor->get_speed());
+      return _motor->do_start() ? CLEAR : KEEP;
+   }
 
-         // wait period has passed, now we start telling the motor to increase the speed
-         _eventdispatcher->schedule(50, new ArmMotorsEvent(NULL, _motor));
-         return CLEAR;
-      }
-};
+   // wait period has passed, now we start telling the motor to increase the speed
+   _eventdispatcher->schedule(50, new ArmMotorsEvent(NULL, _motor));
+   return CLEAR;
+}
 
 Motor::Motor(Eventdispatcher *eventdispatcher, int pin_number, int idle_speed) {
    this->_eventdispatcher = eventdispatcher;
