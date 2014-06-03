@@ -1,7 +1,7 @@
 #include "WrapArduino.h"
 #include "eventdispatcher.h"
 #include "WrapServo.h"
-#include "HardwareSerial.h"
+#include "WrapSerial.h"
 
 #ifndef __motor_h
 #define __motor_h
@@ -15,9 +15,6 @@ class Motor {
       int   _pin_number;
       int   _idle_speed;
       int   _current_speed;
-      long  _sync_interval;
-      long  _sleep_millis;
-      long  _sync_last_time;
       bool  _on;
       bool  _started;
 
@@ -31,6 +28,16 @@ class Motor {
       int   get_speed();
       bool  is_started();
       ~Motor();
+};
+
+class ArmMotorsEvent : public Event {
+   private:
+      Motor             *_motor;
+      Eventdispatcher   *_eventdispatcher;
+
+   public:
+      ArmMotorsEvent(Eventdispatcher *eventdispatcher, Motor *motor);
+      EventEnum fire_event();
 };
 
 #endif

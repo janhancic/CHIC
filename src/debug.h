@@ -15,23 +15,18 @@
 #endif
 
 #ifdef _TESTING
-   #define PRINT(format, ...) \
-      printf(format, ##__VA_ARGS__);
-   #define PRINTLN(format, ...) \
-      printf(format, ##__VA_ARGS__); \
-      printf("\n");
+   #define PRINT(str) \
+      printf(str);
+   #define PRINTLN(str) \
+      printf("%s\n", str); \
 #else
-   #define PRINT(format, ...) \
+   #define PRINT(str)\
       do { \
-         char buf[256]; \
-         snprintf(buf, 256, format, ##__VA_ARGS__); \
-         Serial.print(buf); \
+         Serial.print(str); \
       } while(0);
-   #define PRINTLN(format, ...) \
+   #define PRINTLN(str) \
       do { \
-         char buf[256]; \
-         snprintf(buf, 256, format, ##__VA_ARGS__); \
-         Serial.println(buf); \
+         Serial.println(str); \
       } while(0);
 #endif /* _TESTING */
 

@@ -38,8 +38,8 @@ $(TGTS_$(d)): $(TGTS_$(d):%.hex=%.elf)
 
 define test_target
 $(d)/$1: CF_TGT := -I$(ARDUINO_CORE) -I$(ARDUINO_VARIANT) -I$(d)/wrapper -Ilib/catch -Ilib/arrayset $(GMOCK_INCLUES) -Ilib/gyro -Ilib/i2cdev -D_TESTING
-$(d)/$1: $(d)/test_$(1:%.test=%.cpp) $(d)/$(1:%.test=%.cpp) lib/arrayset/arrayset.cpp
-	$(CXX) -g -O3 -std=c++11 -Wall $$(CF_TGT) -o $$@ $$^ lib/gmock/gmock_main.a
+$(d)/$1: $(d)/test_$(1:%.test=%.cpp) $(d)/$(1:%.test=%.cpp) lib/arrayset/arrayset.cpp src/eventdispatcher.cpp lib/gmock/gmock_main.a
+	$(CXX) -g -O3 -std=c++11 -Wall $$(CF_TGT) -o $$@ $$^ 
 	@./$$@
 endef
 
